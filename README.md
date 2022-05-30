@@ -29,5 +29,14 @@ As this is an app for sharing music, there will be some liability regarding crea
 compliance. It will do better if it's completely decentralized, but there will still be some t's and c's to 
 cover DMCA.
 
-<img src="https://github.com/collectivenectar/soundslip/blob/main/WireFrameAccount.jpg?raw=true" width="100" height="100">
+These are some figma wireframes I made to sketch out the structure of the app(subject to lots of change possibly)
+
+
+
+<img src="https://github.com/collectivenectar/soundslip/blob/main/WireframeSearch.jpg?raw=true" width="683" height="384">
+<img src="https://github.com/collectivenectar/soundslip/blob/main/WireFrameAccount.jpg?raw=true" width="150" height="100">
+<img src="https://github.com/collectivenectar/soundslip/blob/main/WireframeAccountInfo.jpg?raw=true" width="683" height="384">
+<img src="https://github.com/collectivenectar/soundslip/blob/main/WireframeUploadS1.jpg?raw=true" width="683" height="384">
+<img src="https://github.com/collectivenectar/soundslip/blob/main/WireframeUploadS2.jpg?raw=true" width="683" height="384">
+
 
