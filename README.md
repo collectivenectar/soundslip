@@ -29,5 +29,5 @@ As this is an app for sharing music, there will be some liability regarding crea
 compliance. It will do better if it's completely decentralized, but there will still be some t's and c's to 
 cover DMCA.
 
-<img src="[https://your-image-url.type](https://github.com/collectivenectar/soundslip/blob/main/WireFrameAccount.jpg?raw=true)" width="100" height="100">
+<img src="https://github.com/collectivenectar/soundslip/blob/main/WireFrameAccount.jpg?raw=true" width="100" height="100">
 
