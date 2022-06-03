@@ -4,9 +4,9 @@ A Webapp for sharing small audio files
 Soundslip is a sharing app for audio files
 
 I love sites like freesound.org and picking up sample packs and instruments for my own music production,
-so I decided to make a sound sharing app that doesn't need centralized hosting for the files themselves.
+so I decided to make a sound sharing app, starting with a basic server, then going for an IPFS pinned version.
 
-This will likely use a pinning service like pinata for file hosting, and 
+The plan is to eventually shift to a service like pinata for file hosting, and see how I can improve serving from there.
 
 
 MVP features:
@@ -17,11 +17,12 @@ MVP features:
 
 Considered additional features:
 
-1) larger file sizes (full songs or wav/aiff/flac)
+1) larger file sizes (full songs or wav/aiff/flac) with GridFS
 2) group audio files as packs or albums
 3) Sample history page -> See if other users have used this sample in any of their songs/samples, with links
 4) Decentralized hosting for all aspects of the app, including user authentication, i.e. Running a node or using metamask.
 5) Cryptocurrency integration for file access paygates.
+6) Virtual folders for DAW integration(search for files hosted from inside DAW?)
 
 Concerns:
 
