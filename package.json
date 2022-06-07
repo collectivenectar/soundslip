@@ -1,0 +1,31 @@
+{
+  "name": "soundslip",
+  "version": "0.0.1",
+  "description": "SoundSlip sharing audio samples",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js3"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/collectivenectar/soundslip.git"
+  },
+  "keywords": [
+    "audio"
+  ],
+  "author": "collectivenectar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/collectivenectar/soundslip/issues"
+  },
+  "homepage": "https://github.com/collectivenectar/soundslip#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
