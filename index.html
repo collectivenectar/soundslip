@@ -2,15 +2,119 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/main.css">
     <title></title>
   </head>
   <body>
-
-  <h2>Search for name:</h2>
-  <form class="" action="index.html" method="post">
-    <input type="text" name="name" value="" placeholder="name">
-    <button type="submit" name="button"></button>
-  </form>
+    <header>
+      <nav>
+        <a href="#">Home</a>
+        <h3>soundslip</h3>
+        <ul>
+          <li>+upload</li>
+          <li>UserName</li>
+          <li><i>profile icon</i></i>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <section id="search-panel">
+      <form class="" action="index.html" method="post">
+        <input type="text" name="samplesearch" value="" placeholder="keywords e.g. 'horn'">
+        <p>Results: __ results with the word "____"</p>
+      </form>
+      <div class="sample-category">
+        <h3>CategoryName</h3>
+        <div class="">
+          <h4>subCategory1</h4>
+          <h4>subCategory2</h4>
+        </div>
+      </div>
+      <div class="sample-category">
+        <h3>CategoryName</h3>
+        <div class="">
+          <h4>subCategory1</h4>
+          <h4>subCategory2</h4>
+        </div>
+      </div>
+    </section>
+    <section id="search-results">
+      <div class="results-cell">
+        <i>play icon</i>
+        <div class="results-text">
+          <h2>Sample Title</h2>
+          <h4>Uploaded By: @UserName</h4>
+          <div class="selected-sample" hidden="true">
+            <section id="details">
+              <h4>Appears in other samples</h4>
+              <h4>fileName.wav</h4>
+              <div class="attribution-links">
+                <h5>@UserName used this sample in:</h5>
+                <h4>Sample Title</h4>
+              </div>
+              <div class="attribution-links">
+                <h5>@UserName used this sample in:</h5>
+                <h4>Sample Title</h4>
+              </div>
+            </section>
+            <section id="download">
+              <h3>License: CC0</h3>
+              <a href="#">Free Download</a>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div class="results-cell">
+        <i>play icon</i>
+        <div class="results-text">
+          <h2>Sample Title</h2>
+          <h4>Uploaded By: @UserName</h4>
+          <div class="selected-sample" hidden="true">
+            <section id="details">
+              <h4>Appears in other samples</h4>
+              <h4>fileName.wav</h4>
+              <div class="attribution-links">
+                <h5>@UserName used this sample in:</h5>
+                <h4>Sample Title</h4>
+              </div>
+              <div class="attribution-links">
+                <h5>@UserName used this sample in:</h5>
+                <h4>Sample Title</h4>
+              </div>
+            </section>
+            <section id="download">
+              <h3>License: CC0</h3>
+              <a href="#">Free Download</a>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div class="results-cell">
+        <i>play icon</i>
+        <div class="results-text">
+          <h2>Sample Title</h2>
+          <h4>Uploaded By: @UserName</h4>
+          <div class="selected-sample">
+            <section id="details">
+              <h4>Appears in other samples</h4>
+              <h4>fileName.wav</h4>
+              <div class="attribution-links">
+                <h5>@UserName used this sample in:</h5>
+                <h4>Sample Title</h4>
+              </div>
+              <div class="attribution-links">
+                <h5>@UserName used this sample in:</h5>
+                <h4>Sample Title</h4>
+              </div>
+            </section>
+            <section id="download">
+              <h3>License: CC0</h3>
+              <a href="#">Free Download</a>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
 <!--
 heroku login -i
 heroku create simple-rap-api
