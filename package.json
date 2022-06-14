@@ -1,29 +1,26 @@
 {
   "name": "soundslip",
-  "version": "0.0.1",
-  "description": "SoundSlip sharing audio samples",
+  "version": "1.0.0",
+  "description": "A Webapp for sharing small audio files",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js3"
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/collectivenectar/soundslip.git"
   },
-  "keywords": [
-    "audio"
-  ],
-  "author": "collectivenectar",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/collectivenectar/soundslip/issues"
   },
   "homepage": "https://github.com/collectivenectar/soundslip#readme",
   "dependencies": {
+    "body-parser": "^1.20.0",
     "express": "^4.18.1",
-    "cors": "^8.8.5"
+    "mongodb": "^4.7.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"

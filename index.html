@@ -20,9 +20,10 @@
     </header>
     <main>
       <section id="search-panel">
-        <form action="index.html" method="POST">
-          <input type="text" name="samplesearch" value="" placeholder="keywords e.g. 'horn'">
-          <p>Results: __ results with the word "____"</p>
+        <form action="/samples" method="POST">
+          <input type="text" name="filename" value="" placeholder="file name">
+          <input type="text" name="title" value="" placeholder="title">
+          <button type="submit">Submit</button>
         </form>
         <div class="sample-category">
           <h3>CategoryName</h3>
