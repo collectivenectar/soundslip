@@ -28,6 +28,27 @@ nav > ul > li {
   width: 33%;
   text-align: center;
 }
+main{
+  display: flex;
+  flex-direction: row;
+}
 #search-panel{
-  
+  width: 30%;
+  border: solid red 1px;
+  margin-bottom: 0;
+}
+#search-panel > form{
+  border: solid green 1px;
+  height: 10rem;
+}
+form > input{
+  width: 80%;
+  margin-left: 2rem;
+}
+.sample-category{
+  border: solid yellow 1px;
+}
+#search-results{
+  width: 70%;
+  border: solid blue 1px;
 }
