@@ -15,19 +15,19 @@ const SoundslipSchema = new mongoose.Schema({
     default: 'public',
     enum: ['public', 'private']
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
+  // user: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'User'
+  // },
   createdAt: {
     type: Date,
     default: Date.now
   },
-  fileURL: {
-    type: String,
-    default: '',
-    required: true
-  }
+  // fileURL: {
+  //   type: String,
+  //   default: '',
+  //   required: true
+  // }
 })
 
 module.exports = mongoose.model('Soundslip', SoundslipSchema)

@@ -1,28 +1,23 @@
 const express = require('express')
 const router = express.Router()
+const soundslipController = require('../controllers/soundslipController')
 const { ensureAuth, ensureGuest } = require('../middleware/auth')
 
-const Soundslip = require('../models/Soundslip')
 
 // @desc  Login/Landing page
 // @route GET /
-router.get('/', ensureGuest, (request, response) => {
-  response.render('login', {layout: 'login'})
+router.get('/', (request, response) => {
+  response.status(200).json({mssg: "request to login"})
 })
 
 // @desc  Dashboard
 // @route GET /dashboard
-router.get('/dashboard', ensureAuth, async (request, response) => {
-  try{
-    const soundslips = await Soundslip.find({user: request.user.id}).lean()
-    response.render('dashboard', {
-      name: request.user.firstName,
-      soundslips
-    })
-  }catch (err){
-    console.error(err)
-    response.render('error/500')
-  }
-})
+// add ensureAuth after route
+// router.get('/dashboard', soundslipController.getDashboard)
+
+// @desc Library (search)
+// @route GET /library
+// add ensureAuth after route
+router.get('/library', soundslipController.getPubSoundslips)
 
 module.exports = router

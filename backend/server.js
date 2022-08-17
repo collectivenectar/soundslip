@@ -7,6 +7,7 @@ const passport = require('passport')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const connectDB = require('./config/db')
+const cors = require('cors')
 
 // load config
 dotenv.config({path: './config/config.env'})
@@ -16,30 +17,34 @@ require('./config/passport')(passport)
 
 // connect to mongodb
 connectDB()
+  .then(() => {
+    app.listen(PORT, console.log(`Server running on port ${PORT}`))
+  })
 
 const app = express()
 
 // Body parser
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
+app.use(cors())
 
 // sessions
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: false,
-  store: MongoStore.create({ mongoUrl: process.env.MONGO_URI})
-}))
+// app.use(session({
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: false,
+//   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI})
+// }))
 
 // Passport Middleware
-app.use(passport.initialize())
-app.use(passport.session())
+// app.use(passport.initialize())
+// app.use(passport.session())
 
 // Set global var
-app.use(function(request, response, next){
-  response.locals.user = request.user || null
-  next()
-})
+// app.use(function(request, response, next){
+//   response.locals.user = request.user || null
+//   next()
+// })
 
 // Routes
 
@@ -49,7 +54,6 @@ app.use('/soundslips', require('./routes/soundslips'))
 
 
 // PORT
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 3000
 
 // Set up express to listen
-app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} on port ${PORT}`))
