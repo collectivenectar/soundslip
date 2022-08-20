@@ -5,12 +5,6 @@ const { ensureAuth } = require('../middleware/auth')
 
 const Soundslip = require('../models/Soundslip')
 
-// @desc  Show add page
-// @route GET /soundslips/add
-router.get('/add', (request, response) => {
-  response.status(200).json({mssg: "navigate me to the add soundslip page"})
-})
-
 // @desc  Process add form
 // @route POST /soundslips/
 router.post('/', soundslipController.actionCreateSoundslip)
@@ -27,7 +21,7 @@ router.get('/:id',soundslipController.getSoundslipById)
 // @route GET /soundslips/edit/:id
 router.get('/edit/:id', soundslipController.editSoundslipForm)
 
-// @desc  Update story
+// @desc  Update soundslip
 // @route PUT /soundslips/:id
 // router.put('/:id', soundslipController.actionEditSoundslip)
 

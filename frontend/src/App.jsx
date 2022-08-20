@@ -1,26 +1,33 @@
-import { BrowserRouter, Routes, Route} from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
+import React from 'react'
+import { ClerkProvider, SignedIn, SignedOut, UserButton, useUser, RedirectToSignIn } from '@clerk/clerk-react'
 
 // Pages & Components
 import Navbar from './components/Navbar'
-import Library from './pages/Library'
-import Login from './pages/Login'
-import Profile from './pages/Profile'
+import Library from './components/pages/Library'
+import Profile from './components/pages/Profile'
 
+const frontendApi = import.meta.env.VITE_REACT_APP_CLERK_FRONTEND_API;
 
 function App() {
+  const navigate = useNavigate()
   return (
-    <div className="App">
-      <BrowserRouter>
-      <Navbar />
-        <div className="pages">
-          <Routes>
-            <Route path="/" element={<Profile/>}></Route>
-            <Route path="/library" element={<Library/>}></Route>
-            <Route path="/login" element={<Login/>}></Route>
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </div>
+      <ClerkProvider
+        frontendApi={frontendApi}
+        navigate={(to) => navigate(to)}
+      >
+          <div className="App">
+              <Navbar/>
+              <div className="pages">
+                  <Routes>
+                      <Route path="/library" element={< Library />}>
+                      </Route>
+                      <Route path="/" element={< Profile />}>
+                      </Route>
+                  </Routes>
+              </div>
+          </div>
+      </ClerkProvider>
   )
 }
 

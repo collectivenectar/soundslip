@@ -37,8 +37,9 @@ const actionCreateSoundslip = async (request, response) => {
     // For example, instead of '(request.body)' below, you could instead
     // put '([request.body.track1, request.body.track2, ...])' and publish
     // multiple files at once.
-    await Soundslip.create(request.body)
-    response.status(200).json({mssg: "redirect to dashboard after adding"})
+    console.log(request.body)
+    await Soundslip.create(request.body.body)
+    response.status(200).send({mssg: "redirect to dashboard after adding"})
   }catch(err){
     console.error(err)
     response.status(500).json({mssg: "unable to create"})

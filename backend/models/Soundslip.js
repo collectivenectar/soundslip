@@ -10,10 +10,10 @@ const SoundslipSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  status: {
-    type: String,
-    default: 'public',
-    enum: ['public', 'private']
+  public: {
+    type: Boolean,
+    default: false,
+    required: true
   },
   // user: {
   //   type: mongoose.Schema.Types.ObjectId,

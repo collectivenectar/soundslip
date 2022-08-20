@@ -1,7 +1,8 @@
 import React from 'react'
 import axios from 'axios'
-import Results from '../components/Results'
-import Searchbar from '../components/Searchbar'
+import Results from '../Results'
+import Searchbar from '../Searchbar'
+import { ClerkProvider, SignedIn, SignedOut, UserButton, useUser, RedirectToSignIn } from '@clerk/clerk-react'
 
 const url = "http://localhost:3000"
 // axios.defaults.baseURL = 'http://myurl';
@@ -18,7 +19,8 @@ const Library = () => {
   }, [])
   return (
     <div className="library">
-        <Searchbar />
+      <SignedIn>
+        <Searchbar/>
         <div className="slip-cell-container">
           {soundslips && soundslips.map(soundslip => {
             return (
@@ -26,6 +28,10 @@ const Library = () => {
             )
           })}
         </div>
+      </SignedIn>
+      <SignedOut>
+        <RedirectToSignIn/>
+      </SignedOut>
     </div>
   )
 }
