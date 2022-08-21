@@ -22,17 +22,14 @@
   },
   "homepage": "https://github.com/collectivenectar/soundslip#readme",
   "dependencies": {
-    "aws-sdk": "^2.1192.0",
+    "aws-sdk": "^2.1199.0",
     "connect-mongo": "^4.6.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
-    "express-session": "^1.17.3",
-    "method-override": "^3.0.0",
+    "express-fileupload": "^1.4.0",
     "mongodb": "^4.8.1",
     "mongoose": "^6.5.2",
-    "passport": "^0.6.0",
-    "passport-google-oauth20": "^2.0.0",
     "path": "^0.12.7"
   }
 }

@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const soundslipController = require('../controllers/soundslipController')
-const { ensureAuth } = require('../middleware/auth')
 
 const Soundslip = require('../models/Soundslip')
 
