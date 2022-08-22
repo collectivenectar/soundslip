@@ -5,9 +5,6 @@ import Searchbar from '../Searchbar'
 import { ClerkProvider, SignedIn, SignedOut, UserButton, useUser, RedirectToSignIn } from '@clerk/clerk-react'
 
 const url = "http://localhost:3000"
-// axios.defaults.baseURL = 'http://myurl';
-// axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
-// axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 const Library = () => {
   const [soundslips, setSoundslips] = React.useState(false)

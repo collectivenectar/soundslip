@@ -15,10 +15,14 @@ const SoundslipSchema = new mongoose.Schema({
     default: false,
     required: true
   },
-  // user: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'User'
-  // },
+  userId: {
+    type: String,
+    required: true
+  },
+  userName: {
+    type: String,
+    required: true
+  },
   createdAt: {
     type: Date,
     default: Date.now

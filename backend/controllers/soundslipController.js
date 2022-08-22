@@ -4,19 +4,21 @@ const Soundslip = require('../models/Soundslip')
 // Main index route functions
 // get all users soundslips, public and private
 const getDashboard = async (request, response) => {
+  console.log(request)
   try{
-    const soundslips = await Soundslip.find({user: request.user.id}).lean()
-    response.status(200).json(soundslips)
+    const soundslips = await Soundslip.find({userId: request.body.id})
+      .lean()
+    response.status(200).send(soundslips)
   }catch (err){
     console.error(err)
-    response.status(500).json({mssg: "no soundslips found"})
+    response.status(500).send({mssg: "no soundslips found for that user"})
   }
 }
 
 // get all soundslips with 'public' status
 const getPubSoundslips = async (request, response) => {
     try{
-      const soundslips = await Soundslip.find({status: 'public'})
+      const soundslips = await Soundslip.find({ public: true })
         // .populate('user')
         .sort({createdAt: 'desc'})
         .lean()
@@ -37,27 +39,13 @@ const actionCreateSoundslip = async (request, response) => {
     // For example, instead of '(request.body)' below, you could instead
     // put '([request.body.track1, request.body.track2, ...])' and publish
     // multiple files at once.
-    console.log(request.body)
-    await Soundslip.create(request.body.body)
-    response.status(200).send({mssg: "redirect to dashboard after adding"})
+    await Soundslip.create(request.body)
+      .then(() => {
+        response.status(200).send({mssg: "redirect to dashboard after adding"})
+      })
   }catch(err){
     console.error(err)
     response.status(500).json({mssg: "unable to create"})
-  }
-}
-
-// Find ALL soundslips with status 'public'
-
-const getPublicSoundslips = async (request, response) => {
-  try{
-    const soundslips = await Soundslip.find({status: 'public'})
-      .populate('user')
-      .sort({createdAt: 'desc'})
-      .lean()
-    response.status(200).json(soundslips)
-  }catch (err){
-    console.error(err)
-    response.status(500).json({mssg: "unable to find public soundslips"})
   }
 }
 
@@ -140,10 +128,10 @@ const actionDeleteSoundslip = async (request, response) => {
 const getPubSoundslipsByUser = async (request, response) => {
   try{
     const soundslips = await Soundslip.find({
-      user: request.params.userId,
-      status: 'public'
+      user: request.params.username,
+      public: true
     })
-    .populate('user')
+    .populate('username')
     .lean()
     response.status(200).json({mssg: "all users pub soundslips"})
   } catch(err){
@@ -154,11 +142,11 @@ const getPubSoundslipsByUser = async (request, response) => {
 
 
 module.exports = {
-  // getDashboard,
+  getDashboard,
   getPubSoundslips,
   // getPublicSoundslips,
   getSoundslipById,
-  // getPubSoundslipsByUser,
+  getPubSoundslipsByUser,
   editSoundslipForm,
   actionCreateSoundslip,
   // actionEditSoundslip,

@@ -55,10 +55,19 @@ nav > ul > li{
 .searchbar-container{
   width: 30%;
   height: 90vh;
-  border: solid blue 1px;
 }
 .slip-cell-container{
   width: 70%;
 }
 .soundslip-cell{
+}
+.all-user-soundslips{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 90vh;
+  overflow: scroll;
+}
+.all-user-soundslips > section{
+  padding: 20px;
 }

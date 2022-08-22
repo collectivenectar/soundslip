@@ -6,6 +6,7 @@ import { ClerkProvider, SignedIn, SignedOut, UserButton, useUser, RedirectToSign
 import Navbar from './components/Navbar'
 import Library from './components/pages/Library'
 import Profile from './components/pages/Profile'
+import Upload from './components/pages/Upload'
 
 const frontendApi = import.meta.env.VITE_REACT_APP_CLERK_FRONTEND_API;
 
@@ -23,6 +24,8 @@ function App() {
                       <Route path="/library" element={< Library />}>
                       </Route>
                       <Route path="/" element={< Profile />}>
+                      </Route>
+                      <Route path="/upload" element={<Upload />}>
                       </Route>
                   </Routes>
               </div>

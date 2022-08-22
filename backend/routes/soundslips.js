@@ -8,17 +8,13 @@ const Soundslip = require('../models/Soundslip')
 // @route POST /soundslips/
 router.post('/', soundslipController.actionCreateSoundslip)
 
-// @desc  Show all soundslips
+// @desc  Show all public soundslips (library feature)
 // @route GET /soundslips/
-router.get('/',soundslipController.getPubSoundslips)
+router.get('/', soundslipController.getPubSoundslips)
 
-// @desc Show single soundslip
+// @desc Show single soundslip (maybe for link sharing? not sure, at least useful for edits)
 // @route GET /soundslips/:id
 router.get('/:id',soundslipController.getSoundslipById)
-
-// @desc  Show edit page
-// @route GET /soundslips/edit/:id
-router.get('/edit/:id', soundslipController.editSoundslipForm)
 
 // @desc  Update soundslip
 // @route PUT /soundslips/:id
@@ -30,6 +26,6 @@ router.get('/edit/:id', soundslipController.editSoundslipForm)
 
 // @desc  Get User soundslips
 // @route GET /soundslips/user/:userId
-// router.get('/user/:userId', soundslipController.getPubSoundslipsByUser)
+router.get('/user/:userName', soundslipController.getPubSoundslipsByUser)
 
 module.exports = router

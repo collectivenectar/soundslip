@@ -3,6 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const connectDB = require('./config/db')
+const upload = require("express-fileupload");
 const cors = require('cors')
 
 // load config
@@ -18,6 +19,7 @@ const app = express()
 
 // Body parser
 app.use(express.urlencoded({extended: false}))
+app.use(upload())
 app.use(express.json())
 app.use(cors())
 

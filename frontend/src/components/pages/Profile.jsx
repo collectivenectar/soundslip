@@ -1,14 +1,13 @@
 import React from 'react'
 import AddSoundslip from '../AddSoundslip'
-import { ClerkProvider, SignedIn, SignedOut, UserButton, useUser, RedirectToSignIn } from '@clerk/clerk-react'
+import {SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react'
+import ManageSoundslips from '../ManageSoundslips'
 
 const Home = () => {
   return (
-
     <div className="home">
       <SignedIn>
-        <h2>Profile</h2>
-        <AddSoundslip />
+        <ManageSoundslips />
       </SignedIn>
       <SignedOut>
         <RedirectToSignIn/>
@@ -16,4 +15,6 @@ const Home = () => {
     </div>
   )
 }
+
+
 export default Home
