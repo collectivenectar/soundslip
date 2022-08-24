@@ -59,8 +59,6 @@ nav > ul > li{
 .slip-cell-container{
   width: 70%;
 }
-.soundslip-cell{
-}
 .all-user-soundslips{
   display: flex;
   flex-direction: row;
@@ -69,5 +67,52 @@ nav > ul > li{
   overflow: scroll;
 }
 .all-user-soundslips > section{
-  padding: 20px;
+  width: 40vw;
+}
+.public-soundslips{
+  width: 100%;
+}
+.private-soundslips{
+}
+.soundslip-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 1em;
+}
+.pub-results{
+  width: 70%;
+}
+.soundslip-container:hover{
+  background-color: lightblue;
+}
+.soundslip-container > i{
+  font-size: 4em;
+}
+.soundslip-container > div + div{
+  display: flex;
+  flex-direction: column;
+  height: 6em;
+  justify-content: space-around;
+  margin-right: 1em;
+}
+.soundslip-container > div + div > button{
+  height: 30%;
+}
+.soundslip-container > div + div > button:hover{
+  background-color: green;
+}
+.soundslip-belongs{
+  font-size: 1em;
+  color: blue;
+}
+.soundslip-title{
+  font-size: 1.2em;
+}
+.soundslip-desc{
+  font-size: 0.8em;
+}
+.soundslip-date{
+  font-size: 0.8em;
 }
