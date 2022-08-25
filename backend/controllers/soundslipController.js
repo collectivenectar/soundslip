@@ -69,27 +69,6 @@ const getSoundslipById = async (request, response) => {
   }
 }
 
-// Request to edit soundslip, if successful, redirect to edit form
-const editSoundslipForm = async (request, response) => {
-  try{
-    const soundslip = await Soundslip.findOne({
-      _id: request.params.id
-    }).lean()
-
-    if(!soundslip){
-      response.status(404).json({mssg: "unable to edit, soundslip id not recognized"})
-    }
-    if(soundslip.user != request.user.id){
-      response.status(404).json({mssg: "not yours to edit"})
-    } else{
-      response.status(200).json(soundslip)
-    }
-  } catch(err){
-    console.error(err)
-    return response.status(500).json({mssg: "error"})
-  }
-}
-
 // CHANGING DB - confirming edit of the soundslip, on success db is changed.
 const actionEditSoundslip = async (request, response) => {
   try{

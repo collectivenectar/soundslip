@@ -18,7 +18,7 @@ router.get('/:id',soundslipController.getSoundslipById)
 
 // @desc  Update soundslip
 // @route PUT /soundslips/:id
-// router.put('/:id', soundslipController.actionEditSoundslip)
+router.put('/:id', soundslipController.actionEditSoundslip)
 
 // @desc  Delete soundslip
 // @route DELETE /soundslips/:id

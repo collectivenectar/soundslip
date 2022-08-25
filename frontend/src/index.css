@@ -75,11 +75,6 @@ nav > ul > li{
 .private-soundslips{
 }
 .soundslip-container{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 1em;
 }
 .pub-results{
   width: 70%;
@@ -90,17 +85,32 @@ nav > ul > li{
 .soundslip-container > i{
   font-size: 4em;
 }
-.soundslip-container > div + div{
+.soundslip-container > section.slip-panel > div + div{
   display: flex;
   flex-direction: column;
-  height: 6em;
   justify-content: space-around;
-  margin-right: 1em;
 }
-.soundslip-container > div + div > button{
+.slip-panel{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+}
+.edit-container{
+}
+.edit-form{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
+}
+.edit-form > *{
+  width: 70%;
+}
+.soundslip-container > section.slip-panel > div + div > button{
   height: 30%;
 }
-.soundslip-container > div + div > button:hover{
+.soundslip-container > section.slip-panel > div + div > button:hover{
   background-color: green;
 }
 .soundslip-belongs{

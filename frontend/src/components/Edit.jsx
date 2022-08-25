@@ -1,39 +1,41 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const Edit = (props) => {
-  const { editForm, setEditForm } = useEffect(props)
-
+const Edit = (soundslip) => {
+  const [editForm, setEditForm] = useState(soundslip.soundslip)
   let navigate = useNavigate()
 
   function handleSubmit(e){
     e.preventDefault()
     // async submit form
-    navigate('/profile', { replace: true })
+    console.log(editForm)
+    // navigate('/profile', { replace: true })
   }
-
-  // function handleChange(e){
-  //   if(e.target.name === "public"){
-  //     setEditForm(oldValues => {
-  //       return {
-  //         ...oldValues,
-  //         public: !prevForm.public
-  //       }
-  //     })
-  //   }else{
-  //     setEditForm(oldValues => {
-  //       ...oldValues,
-  //       [e.target.name]: e.value
-  //     })
-  //   }
-  // }
+  console.log(editForm)
+  function handleChange(e){
+    if(e.target.name === "public"){
+      setEditForm(oldValues => {
+        return {
+          ...oldValues,
+          public: !oldValues.public
+        }
+      })
+    }else{
+      setEditForm(oldValues => {
+        return {
+        ...oldValues,
+        [e.target.name]: e.target.value
+      }
+      })
+    }
+  }
   return(
     <div className="edit-container">
       <form className="edit-form">
-        <input type="text" name="title" value={props.title} onChange={handleChange}></input>
-        <input type="text" name="body" value={props.body} onChange={handleChange}></input>
-        <input type="checkbox" name="public" value={props.public} onChange={handleChange}></input>
-        <input type="submit" onSubmit={handleSubmit}></input>
+        <label>Title<input type="text" name="title" value={editForm.title} onChange={handleChange} placeholder={editForm.title}></input></label>
+        <label>Description<input type="textarea" name="body" value={editForm.body} onChange={handleChange}></input></label>
+        <label>Private<input type="checkbox" name="public" value={editForm.public} onChange={handleChange}></input></label>
+        <input type="submit" onClick={e => handleSubmit(e)} value="save changes"></input>
       </form>
     </div>
   )
