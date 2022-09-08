@@ -1,10 +1,10 @@
 const Soundslip = require('../models/Soundslip')
+const mongoose = require('mongoose')
 
 
 // Main index route functions
 // get all users soundslips, public and private
 const getDashboard = async (request, response) => {
-  console.log(request)
   try{
     const soundslips = await Soundslip.find({userId: request.body.id})
       .lean()
@@ -71,12 +71,14 @@ const getSoundslipById = async (request, response) => {
 
 // CHANGING DB - confirming edit of the soundslip, on success db is changed.
 const actionEditSoundslip = async (request, response) => {
+  console.log(request.body, request.params)
   try{
-    let soundslip = await Soundslip.findById(request.params.id).lean()
+    let id = mongoose.Types.ObjectId(request.params.id)
+    let soundslip = await Soundslip.findById(id)
     if(!soundslip) {
       response.status(404).json({mssg: "not found"})
     }
-    if(soundslip.user != request.user.id){
+    if(soundslip.userId != request.userId){
       response.status(404).json({mssg: "not yours to edit"})
     } else{
       soundslip = await Soundslip.findOneAndUpdate({_id: request.params.id}, request.body, {
@@ -126,8 +128,7 @@ module.exports = {
   // getPublicSoundslips,
   getSoundslipById,
   getPubSoundslipsByUser,
-  editSoundslipForm,
   actionCreateSoundslip,
-  // actionEditSoundslip,
+  actionEditSoundslip,
   // actionDeleteSoundslip
 }

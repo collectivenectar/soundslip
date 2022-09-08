@@ -18,6 +18,7 @@ const ManageSoundslips = () => {
         setSoundslips(response.data)
       })
   }, [])
+
   return (
     <div className="all-user-soundslips">
       <section className="public-soundslips">
@@ -25,7 +26,10 @@ const ManageSoundslips = () => {
       <div>{soundslips && soundslips.map(soundslip => {
         if(soundslip.public){
           return (
-            <UserResults key={soundslip._id} soundslip={soundslip}/>
+            <UserResults
+            key={soundslip._id}
+            soundslip={soundslip}
+            />
           )
         }
       })}</div>
@@ -35,13 +39,15 @@ const ManageSoundslips = () => {
         <div>{soundslips && soundslips.map(soundslip => {
           if(!soundslip.public){
             return (
-              <UserResults key={soundslip._id} soundslip={soundslip}/>
+              <UserResults
+              key={soundslip._id}
+              soundslip={soundslip}
+              />
             )
           }
         })}</div>
       </section>
     </div>
-
   )
 }
 

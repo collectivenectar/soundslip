@@ -11,7 +11,7 @@ const Results = ({soundslip}) => {
         <h3 className="soundslip-date">{soundslip && soundslip.createdAt}</h3>
         </div>
         <div>
-      <button>Download</button>
+      <button className="download">Download</button>
       </div>
     </div>
   )

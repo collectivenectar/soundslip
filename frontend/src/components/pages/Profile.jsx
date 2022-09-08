@@ -1,7 +1,7 @@
 import React from 'react'
-import AddSoundslip from '../AddSoundslip'
+import AddSoundslip from '../partials/profile/AddSoundslip'
 import {SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react'
-import ManageSoundslips from '../ManageSoundslips'
+import ManageSoundslips from '../partials/profile/ManageSoundslips'
 
 const Home = () => {
   return (

@@ -1,13 +1,15 @@
 import React, {useEffect} from 'react'
-import AddSoundslip from '../AddSoundslip'
+import AddSoundslip from '../partials/profile/AddSoundslip'
 import {SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react'
 
 const Upload = () => {
   return(
     <div>
     <SignedIn>
-      <h2>Upload a new sample</h2>
-      < AddSoundslip />
+      <div className="upload-container">
+        <h2>Upload a new sample</h2>
+        < AddSoundslip />
+      </div>
     </SignedIn>
     <SignedOut>
       <RedirectToSignIn />

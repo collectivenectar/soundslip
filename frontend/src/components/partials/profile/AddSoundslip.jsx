@@ -46,11 +46,13 @@ const AddSoundslip = () => {
 
   return (
     <form className="create-new">
-      <label>Sample Title:</label>
+      <label htmlFor="title">Sample Title:</label>
       <input type="text" name="title" onChange={(e) => updateForm(e)}></input>
-      <input type="text" name="body" onChange={(e) => updateForm(e)}></input>
+      <label htmlFor="textarea">description</label>
+      <input type="textarea" name="body" onChange={(e) => updateForm(e)}></input>
+      <label htmlFor="public">public</label>
       <input type="checkbox" name="public" onChange={(e) => updateForm(e)}></input>
-      <button onClick={handleSubmit}> </button>
+      <button onClick={handleSubmit}>upload</button>
       <div>{}</div>
     </form>
   )

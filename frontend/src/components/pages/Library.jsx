@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
-import Results from '../Results'
-import Searchbar from '../Searchbar'
+import Results from '../partials/library/Results'
+import Searchbar from '../partials/library/Searchbar'
 import { ClerkProvider, SignedIn, SignedOut, UserButton, useUser, RedirectToSignIn } from '@clerk/clerk-react'
 
 const url = "http://localhost:3000"
