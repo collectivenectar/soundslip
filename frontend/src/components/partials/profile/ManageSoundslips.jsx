@@ -1,5 +1,4 @@
 import React, { useState, createContext } from 'react'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { isLoaded, isSignedIn, useUser } from '@clerk/clerk-react'
 import UserResults from './UserResults'

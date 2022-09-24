@@ -107,7 +107,7 @@ module.exports = {
           response.status(500).json({mssg: "error"})
         }
     },
-    // Called in case I find a need to get a presigned url
+    // For requesting a presign URL for the audio player
     getPreSignedAudio: async (operation, params, callback) => {
         try{
             var params = {

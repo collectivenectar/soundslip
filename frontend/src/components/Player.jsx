@@ -1,11 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { EditContext } from './partials/profile/ManageSoundslips';
+
+
 
 const Player = (props) => {
-    const [playing, setPlaying] = useState(false);
-    const [soundslip, setSoundslip] = useState(null)
-    return (
-        <audio controls controlsList="nodownload" src="">
+    const {setSoundPlaying} = useContext(EditContext)
+    const [url, setUrl] = useState(null)
+    // need to manage a few things:
+    // Play/Pause - if other sound is playing, stop that sound, then play this one
+    // Loading metadata
 
+
+    return (
+        <audio controls className="audio-player">
+            <source src=""></source>
         </audio>
     )
 }

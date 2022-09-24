@@ -33,9 +33,3 @@ const Library = () => {
   )
 }
 export default Library
-
-// {soundslips && soundslips.map(soundslip => {
-//   return (
-//     <div key={soundslip._id}>{soundslip.body}</div>
-//   )
-// })}

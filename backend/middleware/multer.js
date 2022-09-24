@@ -4,7 +4,7 @@ const multerS3 = require('multer-s3-v2');
 
 const s3 = new aws.S3();
 
-const mimetypes = ["audio/mpeg", "audio/vnd.wav", "audio/x-aiff"]
+const mimetypes = ["audio/mpeg"] // + , "audio/vnd.wav", "audio/x-aiff"
 
 aws.config.update({
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
@@ -16,7 +16,7 @@ const fileFilter = (req, file, cb) => {
   if(mimetypes.includes(file.mimetype)){
     cb(null, true);
   }else{
-    cb(new Error("Invalid file type, only WAV, AIFF, FLAC"))
+    cb(new Error("Invalid file type, only MP3"))
   }
 }
 
@@ -26,7 +26,7 @@ const upload = multer({
     s3,
     bucket: "soundslip",
     metadata: function (request, file, cb) {
-      cb(null, {fieldName: "metadata"})
+      cb(null, {content-type: "audio/mpeg"})
     },
     key: function(request, file, cb) {
       cb(null, Date.now().toString());

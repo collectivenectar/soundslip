@@ -1,8 +1,7 @@
 import React, { useState, useContext } from 'react'
-import {Link} from 'react-router-dom'
-import { isLoaded, isSignedIn, useUser } from '@clerk/clerk-react'
 import axios from 'axios'
 import Edit from './Edit'
+import Player from '../../Player'
 import { EditContext } from './ManageSoundslips'
 
 const baseUrl = "http://localhost:3000"
@@ -45,6 +44,9 @@ const UserResults = ({soundslip}) => {
           <h2 className="soundslip-title">{soundslip && soundslip.title}</h2>
           <h3 className="soundslip-desc">{soundslip && soundslip.body}</h3>
           <h3 className="soundslip-date">{soundslip && soundslip.createdAt}</h3>
+          </div>
+          <div>
+            < Player />
           </div>
           <div>
             <button className="soundslip-edit" onClick={editSoundslip}>Edit Details</button>
