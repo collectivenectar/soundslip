@@ -1,16 +1,43 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import {Link} from 'react-router-dom'
 import { isLoaded, isSignedIn, useUser } from '@clerk/clerk-react'
 import axios from 'axios'
 import Edit from './Edit'
+import { EditContext } from './ManageSoundslips'
 
 const baseUrl = "http://localhost:3000"
 
 const UserResults = ({soundslip}) => {
-  const [editClicked, setEditClicked] = useState(false)
-  function editSoundslip(e){
-    setEditClicked(clicked => !clicked)
+  const {isEditing, setIsEditing, setFormSubmit} = useContext(EditContext)
+
+  function editSoundslip() {
+    for(let each = 0; each < Object.keys(isEditing).length; each++){
+      let visible = Object.keys(isEditing)[each]
+      if(soundslip._id === visible){
+        setIsEditing(oldState => ({
+          ...oldState,
+          [visible]: !oldState[visible]
+        }))
+      }else if(soundslip._id !== visible && isEditing[visible]){
+        setIsEditing(oldState => ({
+          ...oldState,
+          [visible]: false
+        }))
+      }
+    }
   }
+  function deleteSoundslip(){
+    axios.delete(baseUrl + `/soundslips/${soundslip._id}`, {})
+      .then(response => {
+        if(response.statusText === "OK"){
+          setFormSubmit(submitted => submitted + 1)
+          console.log(response)
+        }else{
+          console.log(response)
+        }
+      })
+  }
+
   return (
     <div className="soundslip-container">
       <section className="slip-panel">
@@ -21,12 +48,13 @@ const UserResults = ({soundslip}) => {
           </div>
           <div>
             <button className="soundslip-edit" onClick={editSoundslip}>Edit Details</button>
-            <button className="soundslip-delete">Delete</button>
+            <button className="soundslip-delete" onClick={deleteSoundslip}>Delete</button>
           </div>
       </section>
       <section>
-      {editClicked &&
+      {isEditing[soundslip._id] &&
         < Edit
+          key={soundslip._id}
           soundslip={soundslip}
           />}
       </section>

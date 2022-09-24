@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useContext } from 'react'
 import axios from 'axios'
-
+import { EditContext } from './ManageSoundslips'
 const baseUrl = "http://localhost:3000"
 
-const Edit = (soundslip) => {
-  const [editForm, setEditForm] = useState(soundslip.soundslip)
-  let navigate = useNavigate()
+const Edit = (props) => {
+  const [editForm, setEditForm] = useState(props.soundslip)
+  const {isEditing, setIsEditing, setFormSubmit} = useContext(EditContext)
 
   function handleSubmit(e){
     e.preventDefault()
-    // async submit form
-    console.log(editForm._id)
-    axios.put(baseUrl + `/soundslips/${editForm._id}`, editForm)
+    axios.put(baseUrl + `/soundslips/${editForm._id}`, {...editForm})
       .then(response => {
-        console.log(response)
+        if(response.statusText === "OK"){
+          setFormSubmit(submitted => submitted + 1)
+        }else{
+          console.log(response)
+        }
       })
-    // navigate('/profile', { replace: true })
   }
   function handleChange(e){
     const {name, value, type, checked} = e.target
@@ -27,6 +27,24 @@ const Edit = (soundslip) => {
       }
       })
   }
+
+  function editSoundslip() {
+    for(let each = 0; each < Object.keys(isEditing).length; each++){
+      let visible = Object.keys(isEditing)[each]
+      if(props.soundslip._id === visible){
+        setIsEditing(oldState => ({
+          ...oldState,
+          [visible]: !oldState[visible]
+        }))
+      }else if(props.soundslip._id !== visible && isEditing[visible]){
+        setIsEditing(oldState => ({
+          ...oldState,
+          [visible]: false
+        }))
+      }
+    }
+  }
+
   return(
     <div className="edit-container">
       <form className="edit-form">

@@ -1,15 +1,17 @@
 import {useState} from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import {isLoaded, isSignedIn, useUser} from '@clerk/clerk-react'
 
 const baseUrl = "http://localhost:3000"
 
 const AddSoundslip = () => {
-
+  const navigate = useNavigate()
   const { isLoaded, isSignedIn, user } = useUser()
 
   const userInfo = !isLoaded || !isSignedIn ? null : {userId: user.id, userName: user.username}
   const [soundslipForm, setSoundslipForm] = useState({
+    file: null,
     title: "",
     body: "",
     public: false,
@@ -24,7 +26,15 @@ const AddSoundslip = () => {
           public: !prevForm.public
         }
       })
-    }else{
+    }else if(e.target.name === "upload"){
+      setSoundslipForm(prevForm => {
+        return {
+          ...prevForm,
+          file: e.target.files[0]
+        }
+      })
+    }
+    else{
       setSoundslipForm(prevForm => {
         return {
           ...prevForm,
@@ -35,17 +45,26 @@ const AddSoundslip = () => {
   }
 
   const handleSubmit = (e) => {
+    const config = {
+      headers: {
+          'content-type': 'multipart/form-data'
+      }
+    }
     e.preventDefault()
-    axios.post(baseUrl + '/soundslips/', soundslipForm)
+    axios.post(baseUrl + '/soundslips/', soundslipForm, config)
       .then(function(response) {
-
-        //here needs to redirect based on response being positive
-        //redirect to user profile to display public and private slips.
+        if(response.status === 200){
+          navigate('/')
+        }else{
+          console.log("upload failed")
+        }
       })
   }
 
   return (
-    <form className="create-new">
+    <form className="create-new" encType='multipart/form-data'>
+      <label htmlFor="upload">Choose a file to upload</label>
+      <input type="file" name="upload" onChange={(e) => updateForm(e)}></input>
       <label htmlFor="title">Sample Title:</label>
       <input type="text" name="title" onChange={(e) => updateForm(e)}></input>
       <label htmlFor="textarea">description</label>

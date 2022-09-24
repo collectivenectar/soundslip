@@ -27,11 +27,10 @@ const SoundslipSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  // fileURL: {
-  //   type: String,
-  //   default: '',
-  //   required: true
-  // }
+  fileKey: {
+    type: String,
+    required: true
+  }
 })
 
 module.exports = mongoose.model('Soundslip', SoundslipSchema)
