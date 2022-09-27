@@ -5,7 +5,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "start-client": "vite",
+    "start": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },

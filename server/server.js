@@ -7,6 +7,9 @@ const connectDB = require('./config/db')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 
+// PORT
+const PORT = process.env.PORT || 3000
+
 // load config
 dotenv.config({path: './config/config.env'})
 
@@ -35,7 +38,3 @@ app.use(bodyParser())
 
 app.use('/', require('./routes/index'))
 app.use('/soundslips', require('./routes/soundslips'))
-
-
-// PORT
-const PORT = process.env.PORT || 3000
