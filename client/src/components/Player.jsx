@@ -8,6 +8,7 @@ const Player = (props) => {
     const [isPlaying, setIsPlaying] = useState(false)
     const {soundPlaying, setSoundPlaying, userId} = useContext(EditContext)
     const playerRef = useRef(new Audio())
+    playerRef.current.autoplay = true
 
     function togglePlay (e) {
         setSoundPlaying((oldAllSounds) => {
