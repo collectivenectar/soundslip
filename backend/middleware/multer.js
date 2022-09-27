@@ -26,8 +26,9 @@ const upload = multer({
     s3,
     bucket: "soundslip",
     metadata: function (request, file, cb) {
-      cb(null, {content-type: "audio/mpeg"})
+      cb(null, {contentType: "audio/mpeg"})
     },
+    contentType: multerS3.AUTO_CONTENT_TYPE,
     key: function(request, file, cb) {
       cb(null, Date.now().toString());
     }

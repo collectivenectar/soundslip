@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext, useRef } from 'react';
-import { EditContext } from './partials/profile/ManageSoundslips';
+import { EditContext } from '../../pages/Library';
 import axios from 'axios'
 import ReactAudioPlayer from 'react-audio-player';
 

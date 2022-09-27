@@ -147,3 +147,7 @@ nav > ul > li{
   display: flex;
   flex-direction: column;
 }
+.audio-player{
+  border: solid red 1px;
+  width: 10px;
+}

@@ -13,6 +13,7 @@
     "@clerk/clerk-react": "^4.0.5",
     "axios": "^0.27.2",
     "react": "^18.2.0",
+    "react-audio-player": "^0.17.0",
     "react-dom": "^18.2.0",
     "react-query": "^4.0.0",
     "react-router-dom": "^6.3.0",

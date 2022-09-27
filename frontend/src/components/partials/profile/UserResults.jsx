@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import axios from 'axios'
 import Edit from './Edit'
 import Player from '../../Player'
@@ -7,6 +7,7 @@ import { EditContext } from './ManageSoundslips'
 const baseUrl = "http://localhost:3000"
 
 const UserResults = ({soundslip}) => {
+  console.log("container reloaded")
   const {isEditing, setIsEditing, setFormSubmit} = useContext(EditContext)
 
   function editSoundslip() {
@@ -35,8 +36,10 @@ const UserResults = ({soundslip}) => {
           console.log(response)
         }
       })
+      .catch(err => {
+        console.log(err)
+      })
   }
-
   return (
     <div className="soundslip-container">
       <section className="slip-panel">
@@ -46,7 +49,9 @@ const UserResults = ({soundslip}) => {
           <h3 className="soundslip-date">{soundslip && soundslip.createdAt}</h3>
           </div>
           <div>
-            < Player />
+            < Player 
+              soundslip={soundslip}
+            />
           </div>
           <div>
             <button className="soundslip-edit" onClick={editSoundslip}>Edit Details</button>

@@ -13,7 +13,9 @@ const ManageSoundslips = () => {
   const [soundslips, setSoundslips] = React.useState(false)
   const [isEditing, setIsEditing] = React.useState({})
   const [formSubmit, setFormSubmit] = React.useState(0)
+  // state management for audio players
   const [soundPlaying, setSoundPlaying] = React.useState(0)
+
   // storing userId information after loading, otherwise null
   const userId = !isLoaded || !isSignedIn ? null: user.id;
 
@@ -47,10 +49,11 @@ const ManageSoundslips = () => {
   }, [formSubmit])
 
   return (
-    <EditContext.Provider value={{isEditing, setIsEditing, setFormSubmit, setSoundPlaying}}>
+    <div>
     <div className="all-user-soundslips">
       <section className="public-soundslips">
       <h2>Public Uploads</h2>
+      <EditContext.Provider value={{isEditing, setIsEditing, setFormSubmit, soundPlaying, setSoundPlaying, userId}}>
       <div>{soundslips && soundslips.map(soundslip => {
         if(soundslip.public){
           return (
@@ -62,9 +65,11 @@ const ManageSoundslips = () => {
         }
       })}
         </div>
+        </ EditContext.Provider>
       </section>
       <section className="private-soundslips">
         <h2>Private Uploads</h2>
+        <EditContext.Provider value={{isEditing, setIsEditing, setFormSubmit, soundPlaying, setSoundPlaying, userId}}>
         <div>{soundslips && soundslips.map(soundslip => {
           if(!soundslip.public){
             return (
@@ -76,9 +81,10 @@ const ManageSoundslips = () => {
           }
         })}
           </div>
+          </ EditContext.Provider>
       </section>
     </div>
-    </ EditContext.Provider>
+    </div>
   )
 }
 

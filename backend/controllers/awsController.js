@@ -68,43 +68,44 @@ module.exports = {
         }
     },
     getSoundslipById: async (request, response) => {
-        try{
+        try {
             const soundslip = await Soundslip.findById(request.params.id)
-                .populate('user')
+                .populate('userId')
                 .lean()
-            if(!soundslip){
-                response.status(404).json({mssg: "not found"})
+            if (!soundslip) {
+                response.status(404).json({ mssg: "not found" })
             }
-            else if(soundslip.user._id != request.user.id && soundslip.status == 'private'){
-                response.status(404).json({mssg: "unable to access"})
-            } else{
+            else if (soundslip.userId != request.query.id && soundslip.status == 'private') {
+                response.status(404).json({ mssg: "unable to access" })
+            } 
             // request a copy of the object in AWS
             // returns AWS.Request
-            var params = {
-                Bucket: request.bucket, 
-                Key: request.key
-                };
-            const sound = await s3.getObject(params, function(err, data) {
-                if (err) response.status(404).send({mssg: "unable to find this sound"}); // an error occurred
-                else     response.status(200).json(sound);           // successful response
-                /*
-                data = {
-                AcceptRanges: "bytes", 
-                ContentLength: 3191, 
-                ContentType: "image/jpeg", 
-                ETag: "\"6805f2cfc46c0f04559748bb039d69ae\"", 
-                LastModified: <Date Representation>, 
-                Metadata: {
-                }, 
-                TagCount: 2, 
-                VersionId: "null"
-                }
-                */
-                });
-            }
-        } catch(err){
-          console.error(err)
-          response.status(500).json({mssg: "error"})
+            var s3Params = {
+                Bucket: "soundslip",
+                Key: soundslip.fileKey,
+                Expires: 300, 
+                ResponseContentType: 'audio/mpeg'
+            };
+            const url = await s3.getSignedUrl('getObject', s3Params)
+                    // successful response
+                    /*
+                    data = {
+                    AcceptRanges: "bytes", 
+                    ContentLength: 3191, 
+                    ContentType: "image/jpeg", 
+                    ETag: "\"6805f2cfc46c0f04559748bb039d69ae\"", 
+                    LastModified: <Date Representation>, 
+                    Metadata: {
+                    }, 
+                    TagCount: 2, 
+                    VersionId: "null"
+                    }
+                    */
+            console.log(url)
+            response.status(200).send(url)
+        } catch (err) {
+            console.error(err)
+            response.status(500).send({ mssg: "error" })
         }
     },
     // For requesting a presign URL for the audio player
