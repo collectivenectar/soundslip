@@ -2,7 +2,7 @@ import { useState, useEffect, useContext, useRef } from 'react';
 import { EditContext } from '../../pages/Library';
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:3000/soundslips/'
+const baseUrl = 'http://localhost:3000'
 
 const Player = (props) => {
     const [isPlaying, setIsPlaying] = useState(false)

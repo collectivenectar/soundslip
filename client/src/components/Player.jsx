@@ -28,9 +28,11 @@ const Player = (props) => {
               'Content-Type': 'audio/mpeg'
           },
         }
+        console.log(params, props.soundslip._id)
         axios.get(baseUrl + props.soundslip._id, {params})
             .then(response => {
                 addPlayer(response.data)
+                console.log(response.data)
             })
             .catch(err => {
                 console.log(err)
