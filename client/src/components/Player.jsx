@@ -59,6 +59,7 @@ const Player = (props) => {
                 stopPlayer()
             }
         }
+        
     }, [isPlaying])
 
     useEffect(() => {
