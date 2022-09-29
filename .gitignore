@@ -1,2 +1,2 @@
-backend/node_modules
-backend/config/config.env
+server/node_modules
+server/config/config.env
