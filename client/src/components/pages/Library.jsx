@@ -1,4 +1,5 @@
 import React, {useEffect, createContext} from 'react'
+import { useLocation } from 'react-router-dom'
 import Results from '../partials/library/Results'
 import Searchbar from '../partials/library/Searchbar'
 
@@ -10,6 +11,7 @@ import { ClerkProvider, SignedIn, SignedOut, UserButton, useUser, RedirectToSign
 export const EditContext = createContext(null)
 
 const Library = () => {
+  let location = useLocation()
   const [soundslips, setSoundslips] = React.useState(false)
   const [soundPlaying, setSoundPlaying] = React.useState(0)
   
@@ -26,6 +28,14 @@ const Library = () => {
         }
         setSoundPlaying(oldValue => allSlipsState)
       })
+  }, [])
+  React.useEffect(() => {
+    console.log("Library component mounted")
+  }, [])
+  React.useEffect(() => {
+    return () => {
+      console.log("Library component unmounted")
+    }
   }, [])
   return (
     <div className="library">

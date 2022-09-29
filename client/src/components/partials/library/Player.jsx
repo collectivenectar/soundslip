@@ -1,13 +1,18 @@
 import { useState, useEffect, useContext, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom'
 import { EditContext } from '../../pages/Library';
 
 import axios from 'axios'
-const baseUrl = 'http://localhost:3000'
+const baseUrl = 'http://localhost:3000/soundslips/'
 
 const Player = (props) => {
     const [isPlaying, setIsPlaying] = useState(false)
     const {soundPlaying, setSoundPlaying, userId} = useContext(EditContext)
     const playerRef = useRef(new Audio())
+    playerRef.current.autoplay = true
+    const noAudioRoutes = ["/", "/upload"]
+    const location = useLocation()
+    const navigate = useNavigate()
 
     function togglePlay (e) {
         setSoundPlaying((oldAllSounds) => {
@@ -66,6 +71,16 @@ const Player = (props) => {
             return soundPlaying[props.soundslip._id]
         })
     }, [soundPlaying])
+    useEffect(() => {
+        if (isPlaying && noAudioRoutes.includes(location.pathname)) {
+            // if the audio is playing and the user is in a route with no audio we will set  
+            // the state to false and refresh / reload de current page to not listen to it
+            togglePlay()
+            playerRef.removeAttribute('src'); // empty source
+            playerRef.load()
+            navigate(0 , { replace: true });
+        }
+    }, [location])
     return (
         < div >
             <span className="audio-player" onClick={togglePlay}>{isPlaying? "pause": "play"}</span>
