@@ -1,5 +1,5 @@
-const aws = require('aws-sdk');
 const Soundslip = require('../models/Soundslip')
+const aws = require('aws-sdk');
 const {upload} = require('../middleware/multer')
 
 const s3 = new aws.S3();
@@ -16,14 +16,12 @@ const singleUpload = upload.single("file")
 // All CRUD operations for the AWS audio files. Create, Delete, and Read, no update/put.
 module.exports = {
     // ADD a soundslip to the db
-    // CAN PASS MULTIPLE FILES PASSING AN ARRAY OF OBJECTS for batching later?
     actionCreateSoundslip: async (request, response) => {
         try{
             singleUpload(request, response, function(err){
                 if(err) {
                     response.status(500).send({mssg: `error uploading to s3: ${err.message}`})
                 }
-                // STORE THE KEY VALUE? OR THE URL?
                 let soundslipLocation = {fileKey: request.file.key}
                 request.body.fileKey = soundslipLocation.fileKey
                 Soundslip.create(request.body)
@@ -53,7 +51,6 @@ module.exports = {
                     if (err){
                         console.log(err, err.stack); // an error occurred
                     } else{
-                        console.log(data);           // successful response
                         Soundslip.deleteOne({_id: request.params.id})
                             .then(response.status(200).send({mssg: "successfully deleted soundslip"}))
                             .catch(err => {
@@ -101,7 +98,6 @@ module.exports = {
                     VersionId: "null"
                     }
                     */
-            console.log(url)
             response.status(200).send(url)
         } catch (err) {
             console.error(err)
@@ -116,8 +112,6 @@ module.exports = {
                 Key: 'key'
             };
             var url = s3.getSignedUrl('getObject', params);
-            // etc etc, download or stream the file to the client?
-            console.log('The URL is', url);
         }catch(err){
             console.log(err)
         }

@@ -1,13 +1,12 @@
-import React, { useState, useContext, useEffect } from 'react'
-import axios from 'axios'
+import React, { useContext } from 'react'
+import { EditContext } from './ManageSoundslips'
 import Edit from './Edit'
 import Player from '../../Player'
-import { EditContext } from './ManageSoundslips'
 
+import axios from 'axios'
 const baseUrl = "http://localhost:3000"
 
 const UserResults = ({soundslip}) => {
-  console.log("container reloaded")
   const {isEditing, setIsEditing, setFormSubmit} = useContext(EditContext)
 
   function editSoundslip() {
@@ -31,7 +30,6 @@ const UserResults = ({soundslip}) => {
       .then(response => {
         if(response.statusText === "OK"){
           setFormSubmit(submitted => submitted + 1)
-          console.log(response)
         }else{
           console.log(response)
         }

@@ -1,15 +1,17 @@
 import {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import {isLoaded, isSignedIn, useUser} from '@clerk/clerk-react'
 
+import axios from 'axios'
 const baseUrl = "http://localhost:3000"
+
+import {isLoaded, isSignedIn, useUser} from '@clerk/clerk-react'
 
 const AddSoundslip = () => {
   const navigate = useNavigate()
-  const { isLoaded, isSignedIn, user } = useUser()
 
+  const { isLoaded, isSignedIn, user } = useUser()
   const userInfo = !isLoaded || !isSignedIn ? null : {userId: user.id, userName: user.username}
+
   const [soundslipForm, setSoundslipForm] = useState({
     file: null,
     title: "",
@@ -18,7 +20,8 @@ const AddSoundslip = () => {
     userId: userInfo.userId,
     userName: userInfo.userName,
   })
-  const updateForm = (e) => {
+
+  function updateForm(e){
     if(e.target.name === "public"){
       setSoundslipForm(prevForm => {
         return {
@@ -44,7 +47,7 @@ const AddSoundslip = () => {
     }
   }
 
-  const handleSubmit = (e) => {
+  function handleSubmit(e){
     const config = {
       headers: {
           'content-type': 'multipart/form-data'

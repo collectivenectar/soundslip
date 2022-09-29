@@ -1,5 +1,6 @@
 import React from 'react'
 import AddSoundslip from '../partials/profile/AddSoundslip'
+
 import {SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react'
 
 const Upload = () => {

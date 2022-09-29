@@ -1,11 +1,12 @@
 import React, { useState, useContext } from 'react'
-import axios from 'axios'
 import { EditContext } from './ManageSoundslips'
+
+import axios from 'axios'
 const baseUrl = "http://localhost:3000"
 
 const Edit = (props) => {
   const [editForm, setEditForm] = useState(props.soundslip)
-  const {isEditing, setIsEditing, setFormSubmit} = useContext(EditContext)
+  const {setFormSubmit} = useContext(EditContext)
 
   function handleSubmit(e){
     e.preventDefault()
@@ -26,23 +27,6 @@ const Edit = (props) => {
         [name]: type === "checkbox" ? checked: value
       }
       })
-  }
-
-  function editSoundslip() {
-    for(let each = 0; each < Object.keys(isEditing).length; each++){
-      let visible = Object.keys(isEditing)[each]
-      if(props.soundslip._id === visible){
-        setIsEditing(oldState => ({
-          ...oldState,
-          [visible]: !oldState[visible]
-        }))
-      }else if(props.soundslip._id !== visible && isEditing[visible]){
-        setIsEditing(oldState => ({
-          ...oldState,
-          [visible]: false
-        }))
-      }
-    }
   }
 
   return(

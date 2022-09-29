@@ -1,7 +1,7 @@
-const aws = require('aws-sdk');
 const multer = require('multer');
 const multerS3 = require('multer-s3-v2');
 
+const aws = require('aws-sdk');
 const s3 = new aws.S3();
 
 const mimetypes = ["audio/mpeg"] // + , "audio/vnd.wav", "audio/x-aiff"
@@ -34,14 +34,5 @@ const upload = multer({
     }
   })
 })
-
-// const fileStorageEngine = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, './tempStorage')
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, Date.now() + '--' + file.originalname)
-//   }
-// })
 
 module.exports = { upload }

@@ -1,16 +1,18 @@
 import React, {useEffect, createContext} from 'react'
-import axios from 'axios'
 import Results from '../partials/library/Results'
 import Searchbar from '../partials/library/Searchbar'
-import { ClerkProvider, SignedIn, SignedOut, UserButton, useUser, RedirectToSignIn } from '@clerk/clerk-react'
 
+import axios from 'axios'
 const url = "http://localhost:3000"
+
+import { ClerkProvider, SignedIn, SignedOut, UserButton, useUser, RedirectToSignIn } from '@clerk/clerk-react'
 
 export const EditContext = createContext(null)
 
 const Library = () => {
   const [soundslips, setSoundslips] = React.useState(false)
   const [soundPlaying, setSoundPlaying] = React.useState(0)
+  
   const { isLoaded, isSignedIn, user } = useUser()
   const userId = !isLoaded || !isSignedIn ? null: user.id;
 

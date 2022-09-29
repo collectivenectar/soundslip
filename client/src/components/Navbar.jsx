@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom'
-import { SignedIn, SignedOut, UserButton, useUser } from '@clerk/clerk-react'
+import { SignedIn, UserButton, useUser } from '@clerk/clerk-react'
 
 const Navbar = () => {
   const { isLoaded, isSignedIn, user } = useUser()
