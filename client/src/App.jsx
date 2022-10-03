@@ -19,6 +19,7 @@ const baseUrl = "http://localhost:3000/soundslips/"
 function App() {
   const location = useLocation()
   const navigate = useNavigate()
+  const locationRef = useRef(location)
 
   const [playersObj, setPlayersObj] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -66,7 +67,6 @@ function App() {
 
     function switchUrls(){
       playerRef.current.url = playersObj[currentSoundPlaying].url
-      playerRef.current.load()
       setIsPlaying(oldState => true)
     }
 
@@ -75,7 +75,7 @@ function App() {
         if(currentSoundPlaying !== null){
           requestUrl(currentSoundPlaying)
         }
-      }else if(!isPlaying){
+      }else{
         if(!playersObj[currentSoundPlaying]){
           requestUrl(currentSoundPlaying)
         }else{
@@ -84,11 +84,11 @@ function App() {
           }
         }
       }
-    }, [currentSoundPlaying])
+    }, [currentSoundPlaying, playersObj, playerRef.current])
 
     useEffect(() => {
       if(isPlaying){
-        playerRef.current.autoplay = true
+        // playerRef.current.autoplay = true
         if(playersObj){
           playerRef.current.src = playersObj[currentSoundPlaying].url
           playerRef.current.load()
@@ -96,19 +96,24 @@ function App() {
         }
       }else{
         if(!playersObj){
+
         }else{
           playerRef.current.pause()
         }
       }
-    }, [isPlaying])
+    }, [isPlaying, playersObj, playerRef.current])
 
     useEffect(() => {
+      if(locationRef.current.pathname !== location.pathname){
         if(playerRef.current.src !== null){
           setIsPlaying(playState => false)
-          playerRef.current.url = null
-          playerRef.current.load()
+          playerRef.current.value = ""
+        }else{
         }
-    }, [location])
+      }else if(locationRef.current.pathname === location.pathname){
+        setIsPlaying(playState => false)
+      }
+    }, [location, locationRef.current, playerRef.current])
 
     return (
       <ClerkProvider
