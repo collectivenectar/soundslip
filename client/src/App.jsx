@@ -1,6 +1,8 @@
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
-import React from 'react';
-import { ClerkProvider, SignedIn, SignedOut, UserButton, useUser, RedirectToSignIn } from '@clerk/clerk-react';
+import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import React, { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { ClerkProvider } from '@clerk/clerk-react';
+import MainPlayer from './MainPlayer'
+import axios from 'axios'
 
 // Pages & Components
 import Navbar from './components/Navbar';
@@ -10,17 +12,115 @@ import Upload from './components/pages/Upload';
 
 const frontendApi = import.meta.env.VITE_REACT_APP_CLERK_FRONTEND_API;
 
+export const AudioContext = createContext(null)
+
+const baseUrl = "http://localhost:3000/soundslips/"
+
 function App() {
-  const navigate = useNavigate();
-  return (
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  const [playersObj, setPlayersObj] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [currentSoundPlaying, setCurrentSoundPlaying] = useState(null)
+  const [userId, setUserId] = useState(null)
+  const playerRef = useRef(new Audio(null))
+
+  function requestUrl(soundslipId){
+    let params = {
+      id: userId,
+      headers: {
+        'Content-Type': 'audio/mpeg'
+      },
+    }
+    axios.get(baseUrl + soundslipId, {params})
+      .then(response => {
+        addNewUrl(response.data, soundslipId)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+
+    function addNewUrl(newUrl, soundslipId){
+      setPlayersObj(oldObj => {
+        if(oldObj === false){
+          return {
+            [soundslipId]: {
+              url: newUrl
+            }
+          }
+        }else{
+          return {
+            ...oldObj,
+            [soundslipId]: {
+              url: newUrl
+            }
+          }
+        }
+      })
+      if(!isPlaying){
+        setIsPlaying(oldState => true)
+      }
+    }
+
+    function switchUrls(){
+      playerRef.current.url = playersObj[currentSoundPlaying].url
+      playerRef.current.load()
+      setIsPlaying(oldState => true)
+    }
+
+    useEffect(() => {
+      if(!playersObj){
+        if(currentSoundPlaying !== null){
+          requestUrl(currentSoundPlaying)
+        }
+      }else if(!isPlaying){
+        if(!playersObj[currentSoundPlaying]){
+          requestUrl(currentSoundPlaying)
+        }else{
+          if(playerRef.current.url !== playersObj[currentSoundPlaying]){
+            switchUrls()
+          }
+        }
+      }
+    }, [currentSoundPlaying])
+
+    useEffect(() => {
+      if(isPlaying){
+        playerRef.current.autoplay = true
+        if(playersObj){
+          playerRef.current.src = playersObj[currentSoundPlaying].url
+          playerRef.current.load()
+          playerRef.current.play()
+        }
+      }else{
+        if(!playersObj){
+        }else{
+          playerRef.current.pause()
+        }
+      }
+    }, [isPlaying])
+
+    useEffect(() => {
+        if(playerRef.current.src !== null){
+          setIsPlaying(playState => false)
+          playerRef.current.url = null
+          playerRef.current.load()
+        }
+    }, [location])
+
+    return (
       <ClerkProvider
         frontendApi={frontendApi}
         navigate={(to) => navigate(to)}
       >
           <div className="App">
-              <Navbar/>
+            <AudioContext.Provider value={{currentSoundPlaying, setCurrentSoundPlaying, isPlaying, setIsPlaying, setUserId}}>
+              <Navbar />
+              < MainPlayer />
               <div className="pages">
-                  <Routes>
+                <Routes>
                       <Route path="/library" element={< Library />}>
                       </Route>
                       <Route path="/" element={< Profile />}>
@@ -29,6 +129,7 @@ function App() {
                       </Route>
                   </Routes>
               </div>
+            </ AudioContext.Provider>
           </div>
       </ClerkProvider>
   )
