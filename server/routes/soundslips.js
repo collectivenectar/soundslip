@@ -15,6 +15,10 @@ router.get('/', soundslipController.getPubSoundslips)
 // @route GET /soundslips/:id
 router.get('/:id', awsController.getSoundslipById)
 
+// @desc Provide a presigned url for downloading the sound file as an attachment
+// @route GET /soundslips/:id/:userId
+router.get('/:userId/:id', awsController.downloadSoundslip)
+
 // @desc  Update soundslip
 // @route PUT /soundslips/:id
 router.put('/:id', soundslipController.actionEditSoundslip)

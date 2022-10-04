@@ -30,8 +30,8 @@ const Player = (props) => {
         }
     }, [isPlaying, currentSoundPlaying])
     return (
-        < div >
-            <span className="audio-player" onClick={togglePlay}>{isThisOnePlaying? "pause": "play"}</span>
+        < div className="lib-player-container">
+            <span className="audio-player-lib" onClick={togglePlay}>{isThisOnePlaying? <i className="fa-solid fa-pause"></i>: <i className="fa-solid fa-play"></i>}</span>
         </div>
     )
 }
