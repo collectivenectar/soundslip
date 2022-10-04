@@ -104,14 +104,29 @@ module.exports = {
             response.status(500).send({ mssg: "error" })
         }
     },
-    // For requesting a presign URL for the audio player
-    getPreSignedAudio: async (operation, params, callback) => {
+    // For requesting a presigned URL for download
+    downloadSoundslip : async (request, response) => {
         try{
-            var params = {
-                Bucket: 'bucket', 
-                Key: 'key'
-            };
-            var url = s3.getSignedUrl('getObject', params);
+            const soundslip = await Soundslip.findById(request.params.id)
+                .populate('userId')
+                .lean()
+            if (!soundslip) {
+                response.status(404).json({ mssg: "not found" })
+            }
+            else if (soundslip.userId != request.params.id && soundslip.status == 'private') {
+                response.status(404).json({ mssg: "unable to access" })
+            }
+            else{
+                var s3Params = {
+                    Bucket: "soundslip",
+                    Key: soundslip.fileKey,
+                    Expires: 300, 
+                    ResponseContentType: 'audio/mpeg',
+                    ResponseContentDisposition: `attachment; filename="${soundslip.title} by ${soundslip.username}"`,
+                };
+                const url = await s3.getSignedUrl('getObject', s3Params)
+                response.status(200).send(url)
+            }
         }catch(err){
             console.log(err)
         }
