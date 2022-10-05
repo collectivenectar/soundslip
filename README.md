@@ -1,5 +1,11 @@
 # soundslip
+
 A Webapp for sharing small audio files
+
+currently deployed and live at:
+
+https://soundslip-frontend.herokuapp.com
+
 
 Soundslip is a sharing app for audio files
 
