@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { EditContext } from './ManageSoundslips'
 
 import axios from 'axios'
-const baseUrl = "http://localhost:3000"
+const baseUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL
 
 const Edit = (props) => {
   const [editForm, setEditForm] = useState(props.soundslip)

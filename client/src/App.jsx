@@ -14,10 +14,10 @@ const frontendApi = import.meta.env.VITE_REACT_APP_CLERK_FRONTEND_API;
 
 export const AudioContext = createContext(null)
 
-const baseUrl = "http://localhost:3000/soundslips/"
+const baseUrl = "/soundslips/"
 
 function App() {
-  const location = useLocation()
+    const location = useLocation()
   const navigate = useNavigate()
   const locationRef = useRef(location)
 
@@ -115,28 +115,28 @@ function App() {
       }
     }, [location, locationRef.current, playerRef.current])
 
-    return (
-      <ClerkProvider
-        frontendApi={frontendApi}
-        navigate={(to) => navigate(to)}
-      >
-          <div className="App">
-            <AudioContext.Provider value={{currentSoundPlaying, setCurrentSoundPlaying, isPlaying, setIsPlaying, setUserId}}>
-              <Navbar />
-              < MainPlayer />
-              <div className="pages">
-                <Routes>
-                      <Route path="/library" element={< Library />}>
-                      </Route>
-                      <Route path="/" element={< Profile />}>
-                      </Route>
-                      <Route path="/upload" element={<Upload />}>
-                      </Route>
-                  </Routes>
-              </div>
-            </ AudioContext.Provider>
+  return (
+    <ClerkProvider
+    frontendApi={frontendApi}
+    navigate={(to) => navigate(to)}
+  >
+      <div className="App">
+        <AudioContext.Provider value={{currentSoundPlaying, setCurrentSoundPlaying, isPlaying, setIsPlaying, setUserId}}>
+          <Navbar />
+          < MainPlayer />
+          <div className="pages">
+            <Routes>
+                  <Route path="/library" element={< Library />}>
+                  </Route>
+                  <Route path="/" element={< Profile />}>
+                  </Route>
+                  <Route path="/upload" element={<Upload />}>
+                  </Route>
+              </Routes>
           </div>
-      </ClerkProvider>
+        </ AudioContext.Provider>
+      </div>
+  </ClerkProvider>
   )
 }
 
