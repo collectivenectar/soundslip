@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/collectivenectar/soundslip.git"
+    "url": "git+https://github.com/collectivenectar/soundslip-backend.git"
   },
   "keywords": [
     "audio",
@@ -19,9 +19,9 @@
   "author": "Jonathan Harvey",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/collectivenectar/soundslip/issues"
+    "url": "https://github.com/collectivenectar/soundslip-backend/issues"
   },
-  "homepage": "https://github.com/collectivenectar/soundslip#readme",
+  "homepage": "https://github.com/collectivenectar/soundslip-backend#readme",
   "dependencies": {
     "aws-sdk": "^2.1199.0",
     "cors": "^2.8.5",
