@@ -18,20 +18,20 @@ Soundslip is a sharing app for audio files
 I love sites like freesound.org and picking up sample packs and instruments for my own music production,
 so I decided to make a sound sharing app, starting with a basic server, then eventually shooting for an IPFS pinned version.
 
-MVP features:
+# MVP features:
 
 1) Each user has the option to upload audio files as 'public' or 'private' - to share or keep access restricted.
 2) Search for public audio files by file Title as well as any previously created Username.
 3) Add sample 'tags' that identify the file as a certain type of sample - "loop", "synth", "drums", "voice", "solo", "other"
 
-Considered additional features:
+# Considered additional features:
 
 1) larger file sizes (full songs or wav/aiff/flac) with GridFS, more MIME types
 2) group audio files as packs or albums - i.e. add a custom 'album' tag to filter results with.
 3) Decentralized file hosting, i.e. pinned on IPFS
 4) Cryptocurrency integration for file access paygates / NFT authentication and DID auth
 
-Concerns:
+# Concerns:
 
 As this is an app for sharing music, there would long-term have to be some liability regarding creative ownership and copyright 
 compliance. My solution would be to shoot for CC0 licensing for anything public, and if the service is relied on that heavily
@@ -45,9 +45,9 @@ These are some figma wireframes I made to sketch out the structure of the app(su
 <img src="https://github.com/collectivenectar/soundslip/blob/main/WireframeUploadS1.jpg?raw=true" width="683" height="384">
 <img src="https://github.com/collectivenectar/soundslip/blob/main/WireframeUploadS2.jpg?raw=true" width="683" height="384">
 
-Made with dependencies:
+# Make it yourself with:
 
-Client
+## Client
 
 VITE
 REACT
@@ -55,7 +55,7 @@ REACT-DOM
 REACT-ROUTER-DOM
 CLERK.DEV 
 
-Server
+## Server
 
 MULTER
 MULTER-S3-V2
@@ -66,45 +66,61 @@ AWS-SDK(V2)
 CORS
 
 
-Deploying it yourself:
+## AWS Notes:
 
 To use with AWS, acquire an AWS IAM user with access to AWS.S3 bucket.
 
-Otherwise, if you don't want to use presigned URLs you may need to change
-how the audio player handles either the files or urls. That is in: 
+If your file host service provides presigned URLs, I've tried to make it simple to swap out.
+
+
+Otherwise, if you don't want to use presigned URLs or AWS you may need to change
+how the audio player handles either the files or urls, and how they are routed. 
+
+That is all handled in: 
 
 https://github.com/collectivenectar/soundslip/blob/main/client/src/App.jsx
-and in:
+https://github.com/collectivenectar/soundslip/blob/main/server/middleware/multer.js
 https://github.com/collectivenectar/soundslip/blob/main/server/controllers/awsController.js
 
 
 
-To deploy just the vite client on heroku, I have used:
+## To deploy just the vite client on heroku, I have used:
 
 Procfile 
-web: npm run heroku-push
+web: npm run heroku-push 
+
 
 Buildpack
-heroku/nodejs
+heroku/nodejs 
+
 
 package.json
 "scripts": {
     "heroku-push": "vite --host --port $PORT"
-  },
+  }, 
+  
+  
 
-And in the heroku CLI to build it the first time I changed some settings:
+## And in the heroku CLI to build the client the first time I changed some settings: 
+
 
 NPM_CONFIG_PRODUCTION=false
+
 NPM_CONFIG_LOGLEVEL=error
+
 YARN_PRODUCTION=false
+
 NODE_VERBOSE=false
+
 NODE_ENV=production
+
 NODE_MODULES_CACHE=true
 
 
 
 
-To deploy just the express server on heroku, I used:
+
+## To deploy just the express server on heroku, I used:
 
 Buildpack
 heroku/nodejs
