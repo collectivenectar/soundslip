@@ -1,8 +1,8 @@
-const multer = require('multer');
-const multerS3 = require('multer-s3-v2');
+const multer = require('multer')
+const multerS3 = require('multer-s3-v2')
 
-const aws = require('aws-sdk');
-const s3 = new aws.S3();
+const aws = require('aws-sdk')
+const s3 = new aws.S3()
 
 const mimetypes = ["audio/mpeg"] // + , "audio/vnd.wav", "audio/x-aiff"
 
@@ -10,7 +10,7 @@ aws.config.update({
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   region: "eu-west-3"
-});
+})
 
 const fileFilter = (req, file, cb) => {
   if(mimetypes.includes(file.mimetype)){
