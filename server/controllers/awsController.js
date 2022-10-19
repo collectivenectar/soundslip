@@ -1,21 +1,21 @@
 const Soundslip = require('../models/Soundslip')
-const aws = require('aws-sdk');
+const aws = require('aws-sdk')
 const {upload} = require('../middleware/multer')
 
-const s3 = new aws.S3();
+const s3 = new aws.S3()
 
 aws.config.update({
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     region: "eu-west-3"
-  });
+  })
 
 const singleUpload = upload.single("file")
 
 
-// All CRUD operations for the AWS audio files. Create, Delete, and Read, no update/put.
+// AWS - operations for AWS S3 Bucket audio files. Create, Delete, and Read, no update/put.
 module.exports = {
-    // ADD a soundslip to the db
+    // UPLOAD - ADD a soundslip to the db
     actionCreateSoundslip: async (request, response) => {
         try{
             singleUpload(request, response, function(err){
@@ -31,10 +31,10 @@ module.exports = {
             })
         }catch(err){
             console.error(err)
-            response.status(500).json({mssg: "unable to create"})
+            response.status(500).send({mssg: "unable to create"})
         }
     },
-    // CHANGING DB - DELETING soundslip permanently, on success db is changed.
+    // PRIVATE PROFILE - DELETING soundslip permanently, on success db is changed.
     actionDeleteSoundslip: async (request, response) => {
         try{
             const soundslip = await Soundslip.findById({_id: request.params.id})
@@ -42,39 +42,44 @@ module.exports = {
                 response.status(404).send({mssg: "unable to find soundslip by that ID"})
             }else{
                 // add if logic here to check the user ID matches request user ID.
-        
-                var params = {
-                    Bucket: "soundslip", 
-                    Key: soundslip.fileKey
-                };
-                s3.deleteObject(params, function(err, data) {
-                    if (err){
-                        console.log(err, err.stack); // an error occurred
-                    } else{
-                        Soundslip.deleteOne({_id: request.params.id})
-                            .then(response.status(200).send({mssg: "successfully deleted soundslip"}))
-                            .catch(err => {
-                                console.error(err)
-                            })
-                    }
-                })
+                if(soundslip.userId === request.query.userId){
+                    var params = {
+                        Bucket: "soundslip", 
+                        Key: soundslip.fileKey
+                    };
+                    s3.deleteObject(params, function(err, data) {
+                        if (err){
+                            console.log(err, err.stack) // an error occurred
+                        } else{
+                            Soundslip.deleteOne({_id: request.params.id})
+                                .then(response.status(200).send({mssg: "successfully deleted soundslip"}))
+                                .catch(err => {
+                                    console.error(err)
+                                })
+                        }
+                    })
+                }else{
+                    response.status(500).send({mssg: "not your soundslip to delete"})
+                }
             }
         } catch(err){
             console.error(err)
-            response.status(500).json({mssg: "error"})
+            response.status(500).send({mssg: "error"})
         }
     },
+    // LIBRARY && PUBLIC PROFILE && PRIVATE PROFILE - User requested to play a sample - presigned URL
+    // specifically for playback. Must be authorized to access file.
     getSoundslipById: async (request, response) => {
         try {
             const soundslip = await Soundslip.findById(request.params.id)
                 .populate('userId')
                 .lean()
             if (!soundslip) {
-                response.status(404).json({ mssg: "not found" })
+                response.status(404).send({ mssg: "not found" })
             }
             else if (soundslip.userId != request.query.id && soundslip.status == 'private') {
-                response.status(404).json({ mssg: "unable to access" })
-            } 
+                response.status(404).send({ mssg: "unable to access" })
+            }
             // request a copy of the object in AWS
             // returns AWS.Request
             var s3Params = {
@@ -82,53 +87,41 @@ module.exports = {
                 Key: soundslip.fileKey,
                 Expires: 300, 
                 ResponseContentType: 'audio/mpeg'
-            };
+            }
             const url = await s3.getSignedUrl('getObject', s3Params)
-                    // successful response
-                    /*
-                    data = {
-                    AcceptRanges: "bytes", 
-                    ContentLength: 3191, 
-                    ContentType: "image/jpeg", 
-                    ETag: "\"6805f2cfc46c0f04559748bb039d69ae\"", 
-                    LastModified: <Date Representation>, 
-                    Metadata: {
-                    }, 
-                    TagCount: 2, 
-                    VersionId: "null"
-                    }
-                    */
             response.status(200).send(url)
         } catch (err) {
             console.error(err)
             response.status(500).send({ mssg: "error" })
         }
     },
-    // For requesting a presigned URL for download
-    downloadSoundslip : async (request, response) => {
+    // LIBRARY && PRIVATE PROFILE && PUBLIC PROFILE - User requested a download - i.e. if
+    // private file and user is not owner, access denied.
+    getDownload: async (request, response) => {
         try{
-            const soundslip = await Soundslip.findById(request.params.id)
+            const soundslip = await Soundslip.findById(request.params.slipId)
                 .populate('userId')
                 .lean()
             if (!soundslip) {
-                response.status(404).json({ mssg: "not found" })
+                response.status(404).send({ mssg: "not found" })
             }
-            else if (soundslip.userId != request.params.id && soundslip.status == 'private') {
-                response.status(404).json({ mssg: "unable to access" })
-            }
+            else if (soundslip.userId != request.body.userId && soundslip.status == 'private') {
+                response.status(404).send({ mssg: "unable to access" })
+            }   
             else{
                 var s3Params = {
                     Bucket: "soundslip",
                     Key: soundslip.fileKey,
                     Expires: 300, 
                     ResponseContentType: 'audio/mpeg',
-                    ResponseContentDisposition: `attachment; filename="${soundslip.title} by ${soundslip.username}"`,
+                    ResponseContentDisposition: 'attachment'
                 };
-                const url = await s3.getSignedUrl('getObject', s3Params)
-                response.status(200).send(url)
+                var url = await s3.getSignedUrl('getObject', s3Params);
+                response.send(url)
             }
         }catch(err){
             console.log(err)
+            response.send({mssg: `error occurred requesting a download url`})
         }
     }
 }

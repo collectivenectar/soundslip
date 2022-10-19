@@ -1,10 +1,7 @@
 const mongoose = require('mongoose')
 
+// This setup is for the public profile for users, not implemented yet
 const UserSchema = new mongoose.Schema({
-  googleId: {
-    type: String,
-    required: true
-  },
   displayName: {
     type: String,
     required: true
@@ -17,7 +14,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  image: {
+  avatarUrl: {
     type: String,
   },
   createdAt: {
