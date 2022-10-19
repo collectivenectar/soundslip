@@ -2,51 +2,82 @@ const Soundslip = require('../models/Soundslip')
 const mongoose = require('mongoose')
 
 module.exports = {
-  // All users soundslips are returned, public and private
-  getDashboard: async (request, response) => {
-    try{
-      const soundslips = await Soundslip.find({userId: request.body.id})
-        .lean()
-      response.status(200).send(soundslips)
-    }catch (err){
-      console.error(err)
-      response.status(500).send({mssg: "no soundslips found for that user"})
-    }
-  },
-  // All public soundslips in the db, pass in search params like instrument/genre/date/etc
+  // LIBRARY - SEARCH - pass in search params like audio tags/username/title
   getPubSoundslips: async (request, response) => {
     try{
-      let params = {
-        public: true
+      // Base search with no parameters returns all items in the db - Not good
+      // if not paginated and the db gets big, but won't be a problem at this point.
+      // Below line is that base search object passed into the mongoose search.
+      let search = {
+        "$and":[
+          {
+            public: true
+          },
+        ]
       }
-      // bring in params here to structure the options and pass into Soundslip.find({option:})
-      if(!request.params.queryType){
-      }else{
-        const queryType = request.params.queryType
-        if(queryType === "Username"){
-          params[userName] = request.params.query
+      // If there are filters, add the filters.
+      if(request.query.filters && request.query.filters.length > 0){
+        if(request.query.filters.includes(",")){
+          let filtersArray = []
+          let requestFilters = request.query.filters.split(",")
+          for(let eachFilter = 0; eachFilter < requestFilters.length; eachFilter++){
+            filtersArray.push({"tag": `${requestFilters[eachFilter]}`})
+          }
+          search["$or"] = filtersArray
         }else{
-          params[title] = request.params.query
+          search["$and"].push({"tag": request.query.filters})
         }
       }
+      // If there is no queryType, do nothing. - This line and other code related to queryType needs
+      // a check since there's only Title and Username so far.
+      if(!request.query.queryType){
 
-      const soundslips = await Soundslip.find(params)
+      }
+      // Otherwise add the mongoose model key and search string, 'userName' or 'title'
+      else if(request.query.queryType === "Username"){
+        search["$and"].push({userName: {'$regex': String(request.query.query), $options: "i"}})
+      }else if(request.query.queryType === "Title"){
+        let titleSearch = request.query.query.trim()
+        if(titleSearch.split(" ").length > 1){
+          for(let eachWord = 0; eachWord < titleSearch.split(" ").length; eachWord++){
+            search["$and"].push({"title": {'$regex': String(titleSearch[eachWord]), $options: "i"}})
+          }
+        }else{
+          // if a "" passed in it could make it here - fix with logic: 
+          if(titleSearch !== ""){
+            search["$and"].push({"title": {'$regex': String(titleSearch), $options: "i"}})
+          }
+        }
+      }
+      const soundslips = await Soundslip.find(search)
         // .populate('user')
 //--->> This section needs tweaking for pagination
         .sort({createdAt: 'desc'})
         .lean()
-        console.log(params, request, soundslips)
       response.status(200).send(soundslips)
     }catch (err){
       console.error(err)
-      response.status(500).json({mssg: "no soundslips found", error: err})
+      response.status(500).send({mssg: "no soundslips found", error: err})
     }
   },
-  // Find all public status soundslips for a specific user.
+  // PRIVATE PROFILE - GET ALL - returns all user audio samples, public and private
+  getDashboard: async (request, response) => {
+    try{
+      const soundslips = await Soundslip.find({userId: request.body.id})
+        .lean()
+// -----> needs logic check for auth - if client/server separated
+      response.status(200).send(soundslips)
+    }catch (err){
+      response.status(500).send({mssg: "no soundslips found for that user"})
+    }
+  },
+  // PUBLIC PROFILE - GET ALL Find all public status soundslips for a specific user. i.e. 
+  // public profile page. Just keeping this function separate from the getDashboard function
+  // to protect auth access.
   getPubSoundslipsByUser: async (request, response) => {
     try{
       const soundslips = await Soundslip.find({
-        user: request.params.username,
+        userName: request.params.username,
         public: true
       })
         .populate('username')
@@ -54,10 +85,10 @@ module.exports = {
       response.status(200).send(soundslips)
     }catch(err){
       console.error(err)
-      response.status(500).json({mssg: "error searching user pub sslips"})
+      response.status(500).json({mssg: "error searching user pub slips"})
     }
   },
-  // CHANGING DB - confirming edit of the soundslip, on success db is changed.
+  // PROFILE - EDIT SAMPLE DETAILS - confirming edit of the soundslip, on success mongodb is changed.
   actionEditSoundslip: async (request, response) => {
     try{
       const soundslip = await Soundslip.findById({_id: request.body._id})
