@@ -23,6 +23,7 @@ const Navbar = () => {
       </ul>
     </div>
   )
+  
   return (
     <header>
       <div className="navbar-mobile">

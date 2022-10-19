@@ -135,6 +135,7 @@ function App() {
         player.removeEventListener('ended', playEnded, false);
       };
     }, [ playerRef.current ]);
+    
   return (
     <ClerkProvider
       frontendApi={frontendApi}

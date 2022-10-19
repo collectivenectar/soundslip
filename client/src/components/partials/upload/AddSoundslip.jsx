@@ -13,6 +13,9 @@ const AddSoundslip = () => {
   const { isLoaded, isSignedIn, user } = useUser()
   const userInfo = !isLoaded || !isSignedIn ? null : {userId: user.id, userName: user.username}
 
+  const [tag, setTag] = useState("")
+  const tagsGrid = useRef(null)
+
   const [soundslipForm, setSoundslipForm] = useState({
     file: "",
     title: "",
@@ -22,9 +25,6 @@ const AddSoundslip = () => {
     userId: userInfo.userId,
     userName: userInfo.userName,
   })
-
-  const tagsGrid = useRef(null)
-  const [tag, setTag] = useState("")
 
   const toastUpload = () => toast("uploading...")
   const toastFailedUpload = () => toast("There was a problem uploading your sample, please try again")

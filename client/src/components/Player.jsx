@@ -29,6 +29,7 @@ const Player = (props) => {
             setIsThisOnePlaying(playState => false)
         }
     }, [ isPlaying, currentSoundPlaying ])
+    
     return (
         < div className="user-audio-player">
             <span onClick={ togglePlay }>{ isThisOnePlaying? <i className="fa-solid fa-pause"></i>: <i className="fa-solid fa-play"></i> }</span>

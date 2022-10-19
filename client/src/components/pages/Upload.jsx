@@ -5,6 +5,7 @@ import AddSoundslip from '../partials/upload/AddSoundslip'
 import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react'
 
 const Upload = () => {
+  
   return(
     <div className="upload">
       <SignedIn>
