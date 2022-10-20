@@ -21,8 +21,6 @@ const baseUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL + "/soundslips/"
 
 export const AudioContext = createContext(null)
 
-const baseUrl = "https://soundslip-server.herokuapp.com/soundslips/"
-
 function App() {
   const location = useLocation()
   const navigate = useNavigate()
