@@ -37,13 +37,16 @@ As this is an app for sharing music, there would long-term have to be some liabi
 compliance. My solution would be to shoot for CC0 licensing for anything public, and if the service is relied on that heavily
 I can always integrate a copyright checking service, or just find a way to fully decentralize the entire service if possible.
 
-These are some figma wireframes I made to sketch out the structure of the app(subject to lots of change possibly)
+Some sample screenshots:
 
-<img src="https://github.com/collectivenectar/soundslip/blob/main/WireframeSearch.jpg?raw=true" width="683" height="384">
-<img src="https://github.com/collectivenectar/soundslip/blob/main/WireFrameAccount.jpg?raw=true" width="150" height="100">
-<img src="https://github.com/collectivenectar/soundslip/blob/main/WireframeAccountInfo.jpg?raw=true" width="683" height="384">
-<img src="https://github.com/collectivenectar/soundslip/blob/main/WireframeUploadS1.jpg?raw=true" width="683" height="384">
-<img src="https://github.com/collectivenectar/soundslip/blob/main/WireframeUploadS2.jpg?raw=true" width="683" height="384">
+<img src="https://github.com/collectivenectar/soundslip/blob/main/mobilesearch.png?raw=true" width="460" height="840">
+<img src="https://github.com/collectivenectar/soundslip/blob/main/usermanage.png?raw=true" width="683" height="384">
+<img src="https://github.com/collectivenectar/soundslip/blob/main/upload.png?raw=true" width="683" height="384">
+<img src="https://github.com/collectivenectar/soundslip/blob/main/sampletags.png?raw=true" width="683" height="124">
+
+A video demo showing how it works:
+
+[coming soon]
 
 # Make it yourself with:
 
