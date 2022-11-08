@@ -7,7 +7,10 @@ It's currently DEPLOYED and live at:
 
 https://soundslip-frontend.herokuapp.com
 
+mobile and desktop demo:
 
+<img src="https://github.com/collectivenectar/soundslip/blob/main/soundslip-desktop.gif" width="500">
+<img src="https://github.com/collectivenectar/soundslip/blob/main/soundslip-mobile.gif" width="300">
 
 If you would like to contribute or offer suggestions for improvement you are welcome to contact me or open an issue!
 
