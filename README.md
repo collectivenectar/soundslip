@@ -5,7 +5,7 @@ A Webapp for sharing small audio files
 It's currently DEPLOYED and live at:
 
 
-https://soundslip-frontend.herokuapp.com
+[Soundslip - live version](https://soundslip-frontend.herokuapp.com)
 
 mobile and desktop demo:
 
@@ -49,7 +49,7 @@ Some sample screenshots:
 
 A video demo showing how it works:
 
-[coming soon]
+[Soundslip - Application Demo](https://youtu.be/Kz3_egB3jH4)
 
 # Make it yourself with:
 
