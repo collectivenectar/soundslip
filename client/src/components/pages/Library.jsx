@@ -11,6 +11,10 @@ const baseUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL
 
 export const EditContext = createContext(null)
 
+//  * Library is the search page of the app, where you find, play, and download public samples.
+//  * On first load, calls to backend api for all public samples, otherwise can search for "" to
+//  * get the same as first load.
+
 const Library = () => {
   const [ soundslips, setSoundslips ] = React.useState(false)
   const { isLoaded, isSignedIn, user } = useUser()

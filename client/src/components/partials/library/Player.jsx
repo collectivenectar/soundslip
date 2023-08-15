@@ -2,6 +2,12 @@ import React, { useState, useEffect, useContext } from 'react'
 
 import { AudioContext } from '../../../App'
 
+// * State management (sort of) for the html audio element that plays all the samples.
+// * Using useRef() to keep a reference to the element outside of rendering cycles
+// * The useRef() is actually created in the App.jsx file, and it's hooks are passed here
+// * for the ability to import the player into multiple pages without losing place in
+// * the currently playing sample.
+
 const Player = ( props ) => {
     const {
         currentSoundPlaying, 

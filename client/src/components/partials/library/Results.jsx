@@ -8,6 +8,9 @@ import { toast } from 'react-toastify'
 
 const baseUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL + "/soundslips/"
 
+// * A cell component for a list style search result
+// * Displays song info and metadata, provides a download link, and a play button.
+
 const Results = ({ soundslip }) => {
 
   const toastTemplate = (msg) => toast(msg)
@@ -17,6 +20,7 @@ const Results = ({ soundslip }) => {
 
   const parsedDate = ("created " + soundslip.createdAt.split("T")[0] + " at " 
     + soundslip.createdAt.split("T")[1].split(".")[0])
+    
   const tagIcons = {
       "drums": "fa-solid fa-drum",
       "synth": "fa-solid fa-wave-square",
