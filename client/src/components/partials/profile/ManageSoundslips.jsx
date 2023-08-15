@@ -9,6 +9,11 @@ const baseUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL
 
 export const EditContext = createContext(null)
 
+// How a user sees all the samples they've uploaded. This is a private version
+// of the library, where the user can edit metadata, remove samples.
+// This would likely be the place for the user feature to be expanded, for
+// shareable links for samples, making sample packs, filling out a public user profile, etc.
+
 const ManageSoundslips = () => {
   const { isLoaded, isSignedIn, user } = useUser()
   const userId = !isLoaded || !isSignedIn ? null: user.id;

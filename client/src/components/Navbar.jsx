@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { dark } from '@clerk/themes'
 import { SignedIn, UserButton, useUser } from '@clerk/clerk-react'
 
+// Non-mobile navbar
+
 const Navbar = () => {
   const { isLoaded, isSignedIn, user } = useUser()
   let userName = !isLoaded || !isSignedIn ? null: user.username;

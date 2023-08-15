@@ -21,6 +21,14 @@ const baseUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL + "/soundslips/"
 
 export const AudioContext = createContext(null)
 
+// To play samples throughout the site, some functionality of the player takes place
+// here as well as in Player.jsx. This is so that hooks are available to components
+// to use the player from anywhere inside the app with the hook useContext.
+
+// Improvements to include redux in nextjs are likely, there is a complication with
+// state management, looking into using stale while refresh and getServerSideProps.
+// Much of the createContext() calls and other hooks here would be relocated.
+
 function App() {
   const location = useLocation()
   const navigate = useNavigate()

@@ -4,6 +4,8 @@ import { useUser } from '@clerk/clerk-react';
 import { useEffect } from 'react';
 
 
+// TODO: this needs refactoring, possibly finding another more secure solution
+
 function MainPlayer() {
     const { isLoaded, isSignedIn, user } = useUser()
     const userId = !isLoaded || !isSignedIn ? null: user.id;

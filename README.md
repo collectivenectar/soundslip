@@ -21,6 +21,8 @@ Soundslip is a sharing app for audio files
 I love sites like freesound.org and picking up sample packs and instruments for my own music production,
 so I decided to make a sound sharing app, starting with a basic server, then eventually shooting for an IPFS pinned version.
 
+#NOTE: With an eye towards a more serverless application, this app and the maintenance for it is being shifted to another repository with the same project purpose. All code is being commented just for quick explanations, and otherwise the majority of development on this idea will be taking place at [NextJS-Soundslip](https://github.com/collectivenectar/nextjs-soundslip). I will likely be using some code from this frontend solution to save time solving the same problems all over again.
+
 # MVP features:
 
 1) Each user has the option to upload audio files as 'public' or 'private' - to share or keep access restricted.

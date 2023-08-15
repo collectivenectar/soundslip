@@ -7,6 +7,8 @@ import axios from 'axios'
 
 const baseUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL
 
+// Component for handling all edits to sample metadata.
+
 const Edit = (props) => {
   const [ editForm, setEditForm ] = useState(props.soundslip)
   const { setFormSubmit } = useContext(EditContext)

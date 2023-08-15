@@ -7,6 +7,13 @@ import { toast } from 'react-toastify'
 
 const baseUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL + "/soundslips"
 
+
+// Searchbar is made up of a text search and a filter search. Search "" to view
+// all public samples. This isn't a good solution for a large database, but it's
+// for now.
+
+// TODO: Pagination and limits on the query response
+
 const Searchbar = () => {
   const { soundslips, setSoundslips, userId } = useContext(EditContext)
 

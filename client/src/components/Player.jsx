@@ -1,6 +1,13 @@
 import { useState, useEffect, useContext } from 'react'
 import { AudioContext } from '../App'
 
+// This player is duplicated for however many samples there are on the page.
+// This needs to queue the id of the sample into the AudioContext useRef()
+// audio element attribute. Then state manages 'hitting play/pause' only on 
+// one sample.
+
+// This makes it ideal to expand to an audio player that can queue a playlist.
+
 const Player = (props) => {
     const {
         currentSoundPlaying, 

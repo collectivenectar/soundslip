@@ -1,6 +1,8 @@
 const Soundslip = require('../models/Soundslip')
 const mongoose = require('mongoose')
 
+// All mongoDB related queries for metadata, not for file storage.
+
 module.exports = {
   // LIBRARY - SEARCH - pass in search params like audio tags/username/title
   getPubSoundslips: async (request, response) => {

@@ -7,6 +7,9 @@ import { isLoaded, isSignedIn, useUser } from '@clerk/clerk-react'
 
 const baseUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL
 
+// This is the main page for the upload process, which I intend to convert into 
+// a modal in the nextJS version, so that frees up more UI space to do cool stuff.
+
 const AddSoundslip = () => {
   const navigate = useNavigate()
 

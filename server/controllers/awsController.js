@@ -2,6 +2,9 @@ const Soundslip = require('../models/Soundslip')
 const aws = require('aws-sdk')
 const {upload} = require('../middleware/multer')
 
+// TODO: This needs to be seriously updated within 2 weeks, trying out render, maybe cloudinary.
+// bucket storage likely needs to be switched to something like infura
+
 const s3 = new aws.S3()
 
 aws.config.update({

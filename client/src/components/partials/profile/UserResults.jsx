@@ -9,6 +9,10 @@ import axios from 'axios'
 
 const baseUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL + "/soundslips/"
 
+// UserResults handles almost the exact same calls to the backend api, only
+// ManageSoundslips brings in two different UserResults: one private, and one
+// public. This acts as the container for that process for easier changes later.
+
 const UserResults = ({ soundslip }) => {
   const { isEditing, setIsEditing, setFormSubmit, userId } = useContext(EditContext)
   const [ isDeleting, setIsDeleting ] = useState(false)
