@@ -13,10 +13,13 @@ connectDB()
     app.listen(PORT, console.log(`Server running on port ${PORT}`))
   })
 
-// Middleware
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  origin: process.env.FRONTEND_URL || '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}))
 app.use(bodyParser())
 
 // Routes

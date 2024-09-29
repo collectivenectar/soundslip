@@ -56,6 +56,7 @@ module.exports = {
 //--->> This section needs tweaking for pagination
         .sort({createdAt: 'desc'})
         .lean()
+        console.log(soundslips)
       response.status(200).send(soundslips)
     }catch (err){
       console.error(err)
@@ -65,9 +66,11 @@ module.exports = {
   // PRIVATE PROFILE - GET ALL - returns all user audio samples, public and private
   getDashboard: async (request, response) => {
     try{
+      
       const soundslips = await Soundslip.find({userId: request.body.id})
         .lean()
 // -----> needs logic check for auth - if client/server separated
+console.log(response)
       response.status(200).send(soundslips)
     }catch (err){
       response.status(500).send({mssg: "no soundslips found for that user"})
@@ -84,6 +87,7 @@ module.exports = {
       })
         .populate('username')
         .lean()
+        console.log(response)
       response.status(200).send(soundslips)
     }catch(err){
       console.error(err)
@@ -94,6 +98,7 @@ module.exports = {
   actionEditSoundslip: async (request, response) => {
     try{
       const soundslip = await Soundslip.findById({_id: request.body._id})
+      console.log(response)
       if(!soundslip) {
         response.status(404).send({mssg: "not found"})
       }

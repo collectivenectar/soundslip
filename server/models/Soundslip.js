@@ -40,6 +40,6 @@ const SoundslipSchema = new mongoose.Schema({
     type: String,
     required: true
 }
-})
+}, { collection: 'soundslips' })
 
 module.exports = mongoose.model('Soundslip', SoundslipSchema)
